@@ -6,6 +6,8 @@ from .ingest import iter_zip_members
 from .requirements import extract_requirements, map_offer
 from .offer_checks import detect_prohibited_conditions, check_format_ok
 from .matrix import write_matrices
+from .price_check import validate_prices
+from .addenda import parse_addenda
 
 TOOL = "tender-digest"
 PACK = "tender-core"
@@ -14,7 +16,8 @@ ENFORCED_TOKENS = {
     "tender:pack:parse_ok",
     "tender:req:mandatories_all_present",
     "tender:offer:prohibited_conditions_absent",
-    "tender:offer:format_ok"
+    "tender:offer:format_ok",
+    "tender:price:arithmetic_ok"
 }
 
 def _asset_id_from(zip_path: str, kind: str) -> str:
@@ -43,7 +46,7 @@ def extract_weights(zip_path: str) -> Dict:
     for line in lines:
         nums += [float(x) for x in re.findall(r"\b\d+(?:\.\d+)?\b", line)]
     total = sum(nums); found = bool(nums)
-    return {"found": found, "total": total, "count": len(nums), "files": sorted(set(files)), "sample_lines": lines[:3]}
+    return {"found": found, "total": total, "count": len(nums), "files": sorted(set(files)), "sample_lines": lines[:3], "source": "tender"}
 
 def extract_formula(zip_path: str) -> Dict:
     hits, files = [], set()
@@ -133,10 +136,14 @@ def main(argv: List[str] | None = None) -> int:
             print(record["reason"], file=sys.stderr)
             return record["exit_code"]
 
+    addn = parse_addenda(args.tender_zip)
+    addenda_limit = addn["overrides"].get("word_limit") if addn["found"] else None
     w = extract_weights(args.tender_zip)
+    if addn["found"] and "weights" in addn["overrides"]:
+        w = {"found": True, "total": round(addn["overrides"]["weights"]["price"] + addn["overrides"]["weights"]["quality"], 2), "count": 2, "files": addn["files"], "sample_lines": [f"Weights: Price {addn['overrides']['weights']['price']}, Quality {addn['overrides']['weights']['quality']}"], "source": "addenda"}
     weights_ok = bool(w["found"] and abs(round(w["total"], 2) - 100.0) < 0.01)
     checks.append(Check(token="tender:criteria:weights_disclosed", ok=weights_ok, details=f"found={int(w['found'])}; total={round(w['total'],2)}; count={w['count']}"))
-    rows.append({"type":"criteria_weights","asset_id":_asset_id_from(args.tender_zip, "pack"),"found":w["found"],"total":round(w["total"],2),"count":w["count"],"files":w["files"],"sample_lines":w["sample_lines"],"ts":record_ts()})
+    rows.append({"type":"criteria_weights","asset_id":_asset_id_from(args.tender_zip, "pack"),"found":w["found"],"total":round(w["total"],2),"count":w["count"],"files":w["files"],"sample_lines":w["sample_lines"],"source":w.get("source","tender"),"ts":record_ts()})
 
     f = extract_formula(args.tender_zip)
     checks.append(Check(token="tender:criteria:formula_disclosed", ok=bool(f["found"]), details=f"found={int(f['found'])}; files={len(f['files'])}"))
@@ -172,9 +179,17 @@ def main(argv: List[str] | None = None) -> int:
     checks.append(Check(token="tender:offer:prohibited_conditions_absent", ok=(not pc["found"]), details=f"violations={pc['count']}"))
     rows.append({"type":"offer_prohibited","asset_id":_asset_id_from(args.offer_zip or '', "offer" if args.offer_zip else "offer"),"found":pc["found"],"files":pc["files"],"sample_lines":pc["sample_lines"],"ts":record_ts()})
 
-    fmt = check_format_ok(args.tender_zip, args.offer_zip) if args.offer_zip else {"found_limit": False, "limit": None, "offer_words": 0, "ok": False, "reason":"NO_OFFER"}
+    fmt = check_format_ok(args.tender_zip, args.offer_zip, limit_override=addenda_limit) if args.offer_zip else {"found_limit": False, "limit": None, "offer_words": 0, "ok": False, "reason":"NO_OFFER"}
     checks.append(Check(token="tender:offer:format_ok", ok=fmt["ok"], details=f"limit={fmt['limit'] if fmt['found_limit'] else 'NA'}; words={fmt['offer_words']}; reason={fmt['reason']}"))
     rows.append({"type":"offer_format","asset_id":_asset_id_from(args.offer_zip or '', "offer" if args.offer_zip else "offer"),"found_limit":fmt["found_limit"],"limit":fmt["limit"],"offer_words":fmt["offer_words"],"ok":fmt["ok"],"reason":fmt["reason"],"ts":record_ts()})
+
+    addenda_applied = bool(addn["found"] and (addenda_limit is not None or w.get("source") == "addenda"))
+    rows.append({"type":"addenda","asset_id":_asset_id_from(args.tender_zip, "pack"),"found":addn["found"],"files":addn["files"],"items":addn["items"],"overrides_used":addenda_applied,"ts":record_ts()})
+    checks.append(Check(token="tender:qna:addenda_applied", ok=addenda_applied, details=f"files={len(addn['files'])}; items={len(addn['items'])}"))
+
+    price = validate_prices(args.offer_zip) if args.offer_zip else {"found": False, "ok": False, "rows_checked": 0, "row_errors": 0, "declared_sum": 0.0, "computed_sum": 0.0, "files": []}
+    checks.append(Check(token="tender:price:arithmetic_ok", ok=price["ok"], details=f"rows={price['rows_checked']}; errors={price['row_errors']}; sum_declared={price['declared_sum']}; sum_computed={price['computed_sum']}"))
+    rows.append({"type":"price_check","asset_id":_asset_id_from(args.offer_zip or '', "offer" if args.offer_zip else "offer"),"found":price["found"],"ok":price["ok"],"rows_checked":price["rows_checked"],"row_errors":price["row_errors"],"declared_sum":price["declared_sum"],"computed_sum":price["computed_sum"],"files":price["files"],"ts":record_ts()})
 
     total_size = sum(m["size"] for m in tender_members) + sum(m["size"] for m in offer_members)
     rows.append({"type":"summary","asset_id":_asset_id_from(args.tender_zip, "pack"),"docs_total": len(tender_members) + len(offer_members),"bytes_total": total_size, "ts": record_ts()})

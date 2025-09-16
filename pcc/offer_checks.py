@@ -40,7 +40,7 @@ def detect_prohibited_conditions(offer_zip: str) -> dict:
                     files.add(name)
     return {"found": bool(hits), "files": sorted(files), "sample_lines": hits[:3], "count": len(hits)}
 
-def find_word_limit(tender_zip: str) -> int | None:
+def find_word_limit_in_tender(tender_zip: str) -> int | None:
     limit = None
     with zipfile.ZipFile(tender_zip, "r") as z:
         for info in z.infolist():
@@ -62,8 +62,8 @@ def offer_word_count(offer_zip: str) -> int:
         total += len([w for w in re.findall(r"\b\w+\b", txt)])
     return total
 
-def check_format_ok(tender_zip: str, offer_zip: str) -> dict:
-    limit = find_word_limit(tender_zip)
+def check_format_ok(tender_zip: str, offer_zip: str, limit_override: int | None = None) -> dict:
+    limit = limit_override if limit_override is not None else find_word_limit_in_tender(tender_zip)
     if not offer_zip:
         return {"found_limit": limit is not None, "limit": limit, "offer_words": 0, "ok": False, "reason": "NO_OFFER"}
     words = offer_word_count(offer_zip)
