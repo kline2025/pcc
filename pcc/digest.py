@@ -36,13 +36,62 @@ def extract_weights(zip_path: str) -> Dict:
         nums += [float(x) for x in re.findall(r"\b\d+(?:\.\d+)?\b", line)]
     total = sum(nums)
     found = bool(nums)
-    return {
-        "found": found,
-        "total": total,
-        "count": len(nums),
-        "files": sorted(set(files)),
-        "sample_lines": lines[:3]
-    }
+    return {"found": found, "total": total, "count": len(nums), "files": sorted(set(files)), "sample_lines": lines[:3]}
+
+def extract_formula(zip_path: str) -> Dict:
+    hits = []
+    files = set()
+    with zipfile.ZipFile(zip_path, "r") as z:
+        for info in z.infolist():
+            if info.is_dir():
+                continue
+            name = info.filename
+            ext = os.path.splitext(name)[1].lower()
+            if ext not in {".txt", ".csv"}:
+                continue
+            text = z.read(info).decode("utf-8", errors="ignore")
+            for line in text.splitlines():
+                s = line.strip()
+                low = s.lower()
+                if any(k in low for k in ["price", "pmin", "pmax", "lowest price"]) and any(sym in s for sym in ["=", "/", "*"]):
+                    if any(k in low for k in ["score", "points", "normalized"]):
+                        hits.append(s)
+                        files.add(name)
+    return {"found": bool(hits), "files": sorted(files), "sample_lines": hits[:3]}
+
+def parse_notice_itt(zip_path: str) -> Dict[str, Dict[str, str | None]]:
+    data = {"notice": {"procedure": None, "lots": None}, "itt": {"procedure": None, "lots": None}}
+    with zipfile.ZipFile(zip_path, "r") as z:
+        for info in z.infolist():
+            if info.is_dir():
+                continue
+            name = info.filename.lower()
+            ext = os.path.splitext(name)[1].lower()
+            if ext not in {".txt", ".csv"}:
+                continue
+            text = z.read(info).decode("utf-8", errors="ignore")
+            proc = None
+            lots = None
+            m = re.search(r"procedure\s*:\s*([^\n\r]+)", text, re.IGNORECASE)
+            if m:
+                proc = m.group(1).strip()
+            m = re.search(r"lots?\s*:\s*([0-9]+)", text, re.IGNORECASE)
+            if m:
+                lots = m.group(1).strip()
+            if "notice" in name:
+                if proc: data["notice"]["procedure"] = proc
+                if lots: data["notice"]["lots"] = lots
+            if "itt" in name or "invitation" in name or "tender" in name:
+                if proc: data["itt"]["procedure"] = proc
+                if lots: data["itt"]["lots"] = lots
+    ok = True
+    for field in ["procedure", "lots"]:
+        n = data["notice"][field]
+        i = data["itt"][field]
+        if n is not None and i is not None and n != i:
+            ok = False
+    data["ok"] = ok
+    return data
 
 def main(argv: List[str] | None = None) -> int:
     import argparse
@@ -89,8 +138,13 @@ def main(argv: List[str] | None = None) -> int:
     checks.append(Check(token="tender:criteria:weights_disclosed", ok=weights_ok, details=f"found={int(w['found'])}; total={round(w['total'],2)}; count={w['count']}"))
     rows.append({"type":"criteria_weights","asset_id":_asset_id_from(args.tender_zip, "pack"),"found":w["found"],"total":round(w["total"],2),"count":w["count"],"files":w["files"],"sample_lines":w["sample_lines"],"ts":record_ts()})
 
-    checks.append(Check(token="tender:criteria:formula_disclosed", ok=False, details="not_implemented"))
-    checks.append(Check(token="tender:coherence:notice_itt_consistent", ok=False, details="not_implemented"))
+    f = extract_formula(args.tender_zip)
+    checks.append(Check(token="tender:criteria:formula_disclosed", ok=bool(f["found"]), details=f"found={int(f['found'])}; files={len(f['files'])}"))
+    rows.append({"type":"criteria_formula","asset_id":_asset_id_from(args.tender_zip, "pack"),"found":f["found"],"files":f["files"],"sample_lines":f["sample_lines"],"ts":record_ts()})
+
+    coh = parse_notice_itt(args.tender_zip)
+    checks.append(Check(token="tender:coherence:notice_itt_consistent", ok=bool(coh.get("ok", False)), details=f"notice_proc={coh['notice']['procedure'] or ''}; itt_proc={coh['itt']['procedure'] or ''}; notice_lots={coh['notice']['lots'] or ''}; itt_lots={coh['itt']['lots'] or ''}"))
+    rows.append({"type":"coherence","asset_id":_asset_id_from(args.tender_zip, "pack"),"fields_checked":["procedure","lots"],"notice":coh["notice"],"itt":coh["itt"],"ok":coh["ok"],"ts":record_ts()})
 
     total_size = sum(m["size"] for m in tender_members) + sum(m["size"] for m in offer_members)
     rows.append({"type":"summary","asset_id":_asset_id_from(args.tender_zip, "pack"),"docs_total": len(tender_members) + len(offer_members),"bytes_total": total_size, "ts": record_ts()})
