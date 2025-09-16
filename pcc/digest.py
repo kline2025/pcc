@@ -4,13 +4,17 @@ from typing import List, Dict
 from .bedrock import build_decision, write_receipts_and_root, Check
 from .ingest import iter_zip_members
 from .requirements import extract_requirements, map_offer
+from .offer_checks import detect_prohibited_conditions, check_format_ok
+from .matrix import write_matrices
 
 TOOL = "tender-digest"
 PACK = "tender-core"
 
 ENFORCED_TOKENS = {
     "tender:pack:parse_ok",
-    "tender:req:mandatories_all_present"
+    "tender:req:mandatories_all_present",
+    "tender:offer:prohibited_conditions_absent",
+    "tender:offer:format_ok"
 }
 
 def _asset_id_from(zip_path: str, kind: str) -> str:
@@ -164,10 +168,19 @@ def main(argv: List[str] | None = None) -> int:
     } for r in mapped)
     checks.append(Check(token="tender:req:mandatories_all_present", ok=(mand_total > 0 and mand_missing == 0 and mand_review == 0), details=f"present={mand_present}; review={mand_review}; missing={mand_missing}; total={mand_total}"))
 
+    pc = detect_prohibited_conditions(args.offer_zip) if args.offer_zip else {"found": False, "files": [], "sample_lines": [], "count": 0}
+    checks.append(Check(token="tender:offer:prohibited_conditions_absent", ok=(not pc["found"]), details=f"violations={pc['count']}"))
+    rows.append({"type":"offer_prohibited","asset_id":_asset_id_from(args.offer_zip or '', "offer" if args.offer_zip else "offer"),"found":pc["found"],"files":pc["files"],"sample_lines":pc["sample_lines"],"ts":record_ts()})
+
+    fmt = check_format_ok(args.tender_zip, args.offer_zip) if args.offer_zip else {"found_limit": False, "limit": None, "offer_words": 0, "ok": False, "reason":"NO_OFFER"}
+    checks.append(Check(token="tender:offer:format_ok", ok=fmt["ok"], details=f"limit={fmt['limit'] if fmt['found_limit'] else 'NA'}; words={fmt['offer_words']}; reason={fmt['reason']}"))
+    rows.append({"type":"offer_format","asset_id":_asset_id_from(args.offer_zip or '', "offer" if args.offer_zip else "offer"),"found_limit":fmt["found_limit"],"limit":fmt["limit"],"offer_words":fmt["offer_words"],"ok":fmt["ok"],"reason":fmt["reason"],"ts":record_ts()})
+
     total_size = sum(m["size"] for m in tender_members) + sum(m["size"] for m in offer_members)
     rows.append({"type":"summary","asset_id":_asset_id_from(args.tender_zip, "pack"),"docs_total": len(tender_members) + len(offer_members),"bytes_total": total_size, "ts": record_ts()})
 
     write_receipts_and_root(receipts_path, root_path, rows)
+    write_matrices(args.out, mapped)
 
     failing_enforced = None
     if args.posture == "enforce":
