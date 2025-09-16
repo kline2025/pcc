@@ -1,0 +1,3 @@
+Procedure: Open
+Lots: 2
+Weights: Price 60, Quality 40

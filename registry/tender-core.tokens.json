@@ -1,0 +1,15 @@
+{
+  "pack": "tender-core",
+  "tokens": [
+    {"token":"tender:pack:parse_ok","plain_definition":"All files parsed; OCR only where needed; parse failures reported.","owner":"pcc-core","posture":"enforce","status":"active"},
+    {"token":"tender:req:mandatories_all_present","plain_definition":"All MUST/SHALL/PROHIBITED items are addressed in the offer; no disqualifier missing.","owner":"pcc-core","posture":"enforce","status":"active"},
+    {"token":"tender:offer:format_ok","plain_definition":"Signatures, language, page/word limits, file types, envelope separation satisfy rules.","owner":"pcc-core","posture":"enforce","status":"active"},
+    {"token":"tender:offer:prohibited_conditions_absent","plain_definition":"Offer has no prohibited caveats where forbidden.","owner":"pcc-core","posture":"enforce","status":"active"},
+    {"token":"tender:price:arithmetic_ok","plain_definition":"Price schedule totals/units/rounding are internally consistent.","owner":"pcc-core","posture":"enforce","status":"active"},
+    {"token":"tender:qna:addenda_applied","plain_definition":"All addenda/Q&A changes are reflected in the offer.","owner":"pcc-core","posture":"advice_only","status":"active"},
+    {"token":"tender:coherence:notice_itt_consistent","plain_definition":"Notice ↔ ITT ↔ Draft Contract agree on lots, weights, procedure type.","owner":"pcc-core","posture":"advice_only","status":"active"},
+    {"token":"tender:criteria:weights_disclosed","plain_definition":"Award criteria and weights extracted and sum to 100 (or regime rule).","owner":"pcc-core","posture":"advice_only","status":"active"},
+    {"token":"tender:criteria:formula_disclosed","plain_definition":"Mechanical scoring formula(s) present and extracted.","owner":"pcc-core","posture":"advice_only","status":"active"},
+    {"token":"tender:offer:coverage_threshold_met","plain_definition":"≥X% sub-criteria have explicit anchors in the offer (completeness hygiene).","owner":"pcc-core","posture":"advice_only","status":"active"}
+  ]
+}

@@ -1,0 +1,17 @@
+[project]
+name = "pcc"
+version = "0.1.0"
+description = "PCC — Procurement Coherence & Compliance (deterministic, receipts-first)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name="Kline", email="you@example.com"}]
+license = {text = "MIT"}
+[project.scripts]
+pcc-digest = "pcc.digest:main"
+pcc-verify = "pcc.verify:main"
+pcc-receipt-diff = "pcc.receipt_diff:main"
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+[tool.setuptools.packages.find]
+include = ["pcc*"]

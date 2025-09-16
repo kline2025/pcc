@@ -1,0 +1,1 @@
+Technical requirements SHALL include uptime of 99.9% per month.
