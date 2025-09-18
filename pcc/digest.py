@@ -74,7 +74,6 @@ def main():
     checks.append(Check(token="tender:pack:parse_ok", ok=True,
                         details=f"docs={len(tender_members)}; allowed={len(tender_members)}", source=None))
 
-    # Kravspesifikasjon (requirements/evaluation)
     if req_rows or eval_rows:
         write_requirements_matrix_csv(matrix_dir, req_rows)
         write_evaluation_items_csv(matrix_dir, eval_rows)
@@ -82,24 +81,20 @@ def main():
         checks.append(Check(token="tender:krav:matrices_built", ok=True,
                             details=f"req={len(req_rows)}; eval={len(eval_rows)}", source=None))
 
-    # ITT (forms, constraints, award weights, formula presence)
     if itt_txt:
         itt_rows, itt_checks = extract_itt(itt_txt, _asset_id_from(args.tender_zip,"pack"))
-        # Write only forms/constraints to CSV; award weights/formula stay as receipts
-        fc_rows = [ {"item":r.get("item"), "value":r.get("value")} for r in itt_rows if r.get("type") in ("submission","forms") ]
+        fc_rows = [ r for r in itt_rows if r.get("type") in ("submission","forms") ]
         if fc_rows:
             write_forms_constraints_csv(matrix_dir, fc_rows)
         rows.extend(_stamp_rows(itt_rows, now_ts))
         for tok, ok, det in itt_checks:
             checks.append(Check(token=tok, ok=ok, details=det, source=None))
 
-    # Price schema (headers + constants per price sheet)
     if price_entries:
         for sheet, header, constants in price_entries:
             write_price_schema_csv(matrix_dir, sheet, header, constants)
         rows.extend(_stamp_rows(price_receipts, now_ts))
 
-    # Service levels
     if bilag10_txt:
         features, svc_receipts = extract_service_levels(bilag10_txt, _asset_id_from(args.tender_zip,"pack"))
         rows.extend(_stamp_rows(svc_receipts, now_ts))
@@ -107,7 +102,6 @@ def main():
         checks.append(Check(token="tender:service:levels_matrix_built", ok=len(features)>0,
                             details=f"features={len(features)}", source=None))
 
-    # Contract terms
     if ramme_txt:
         terms, ct_receipts = extract_contract_terms(ramme_txt, _asset_id_from(args.tender_zip,"pack"))
         rows.extend(_stamp_rows(ct_receipts, now_ts))

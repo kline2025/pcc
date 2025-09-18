@@ -13,9 +13,8 @@ def extract(text, asset_id):
     if m: rows.append(_row("language","nb-NO",m.group(0)))
     m=re.search(r'(vedståelsesfrist|bid\s*valid)\s*[: ]\s*(\d{1,2})\s*måneder',t,re.I)
     if m: rows.append(_row("bid_validity_months",int(m.group(2)),m.group(0)))
-    if re.search(r'alternativ(e)?\s*tilbud|parallelle\s*tilbud',t,re.I):
-        if re.search(r'ikke\s*(mottas|tillates|aksepteres)',t,re.I):
-            rows.append(_row("alt_offers_allowed",False,"alternativ/parallelle tilbud aksepteres ikke"))
+    if re.search(r'alternativ(e)?\s*tilbud|parallelle\s*tilbud',t,re.I) and re.search(r'ikke\s*(mottas|tillates|aksepteres)',t,re.I):
+        rows.append(_row("alt_offers_allowed",False,"alternativ/parallelle tilbud aksepteres ikke"))
     if re.search(r'\bESPD\b',t,re.I):
         rows.append({"type":"forms","item":"espd_required","value":True,"source_file":"ITT.txt","source_snippet":"ESPD"})
     if re.search(r'\begenerklæring\b.*russisk|sanction|sanksjon',t,re.I):
@@ -30,9 +29,9 @@ def extract(text, asset_id):
     total=sum(p for _,p,_ in weights)
     if weights:
         rows.append({"type":"award_weights_total","asset_id":asset_id,"total_pct":total})
-        checks.append(("tender:criteria:weights_disclosed", total>=99 and total<=101, f"total={total}; items={len(weights)}"))
+        checks.append(("tender:criteria:weights_disclosed", 99<=total<=101, f"total={total}; items={len(weights)}"))
     formula=False
-    if re.search(r'laveste\s*(total)?\s*kostnad|lowest\s*(total\s*)?cost',t,re.I) and re.search(r'poeng|points|score',t,re.I) and re.search(r'proport',t,re.I):
+    if re.search(r'laveste\s*(total)?\s*kostnad|lowest\s*(total\s*)?cost',t,re.I) and re.search(r'poeng|points|score',t,re.I) and re.search(r'propor',t,re.I):
         formula=True
     if formula:
         rows.append({"type":"price_formula","asset_id":asset_id,"pattern":"proportional_lowest_max=10"})
@@ -40,7 +39,7 @@ def extract(text, asset_id):
     proc=re.search(r'prosedyre\s*[:]\s*([^\n\r]+)',t,re.I)
     if proc:
         rows.append({"type":"coherence","asset_id":asset_id,"key":"procedure","value":proc.group(1).strip()})
-    lots=re.search(r'delkontrakter|lots?\s*[:]\s*([^\n\r]+)',t,re.I)
+    lots=re.search(r'(delkontrakter|lots?)\s*[:]\s*([^\n\r]+)',t,re.I)
     if lots:
-        rows.append({"type":"coherence","asset_id":asset_id,"key":"lots","value":lots.group(1).strip()})
+        rows.append({"type":"coherence","asset_id":asset_id,"key":"lots","value":lots.group(2).strip()})
     return rows, checks
