@@ -1,1 +1,5 @@
-Bidders MUST provide a signed ESPD. Word limit 20 pages. No prohibited caveats.
+Anskaffelsen gjennomføres som åpen anbudskonkurranse i Mercell. Filnavn på vedlegg må ikke overstige 40 tegn. Språk: norsk.
+Vedståelsesfrist: 6 måneder fra tilbudsfrist. Alternative eller parallelle tilbud aksepteres ikke.
+Krav til vedlegg: ESPD fylles i Mercell. Egenerklæring om russisk involvering skal vedlegges.
+Tildelingskriterier: Totalkostnad 50 %, Produkt 40 %, Leverandørtjenester 10 %.
+Pris evalueres proporsjonalt: laveste totale kostnad = 10 poeng; øvrige i forhold til laveste.

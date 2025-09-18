@@ -1,54 +1,43 @@
 import os,csv,json
-def _ensure(outdir):
-    os.makedirs(outdir,exist_ok=True)
+def _ensure(outdir): os.makedirs(outdir,exist_ok=True)
 def write_requirements_csv(outdir, rows):
-    _ensure(outdir)
-    fn=os.path.join(outdir,'requirements.csv')
+    _ensure(outdir); fn=os.path.join(outdir,'requirements.csv')
     with open(fn,'w',newline='') as fp:
         w=csv.writer(fp); w.writerow(['req_id','priority','doc','doc_sha256','char_start','char_end','text_snippet'])
         for r in rows: w.writerow([r.get('req_id'),r.get('priority'),r.get('doc'),r.get('doc_sha256'),r.get('char_start'),r.get('char_end'),r.get('text_snippet')])
 def write_compliance_csv(outdir, rows):
-    _ensure(outdir)
-    fn=os.path.join(outdir,'compliance.csv')
+    _ensure(outdir); fn=os.path.join(outdir,'compliance.csv')
     with open(fn,'w',newline='') as fp:
         w=csv.writer(fp); w.writerow(['req_id','state','state_reason'])
         for r in rows: w.writerow([r.get('req_id'),r.get('state'),r.get('state_reason')])
 def write_price_schema_csv(outdir, sheet_name, header_list, constants):
-    _ensure(outdir)
-    fn=os.path.join(outdir,'price_schema.csv')
-    mode='a' if os.path.exists(fn) else 'w'
+    _ensure(outdir); fn=os.path.join(outdir,'price_schema.csv'); mode='a' if os.path.exists(fn) else 'w'
     with open(fn,mode,newline='') as fp:
         w=csv.writer(fp)
         if mode=='w': w.writerow(['sheet','headers','constants'])
         w.writerow([sheet_name,"|".join(header_list),json.dumps(constants,ensure_ascii=False)])
 def write_service_levels_csv(outdir, features):
-    _ensure(outdir)
-    fn=os.path.join(outdir,'service_levels.csv')
+    _ensure(outdir); fn=os.path.join(outdir,'service_levels.csv')
     with open(fn,'w',newline='') as fp:
-        w=csv.writer(fp)
-        w.writerow(['feature_key','feature_text','sl0_included','sl1_included','sl2_included','param_name','param_required','ref_requirement_id'])
-        for r in features:
-            w.writerow([r['feature_key'],r['feature_text'],r['sl0_included'],r['sl1_included'],r['sl2_included'],r['param_name'],r['param_required'],r['ref_requirement_id']])
+        w=csv.writer(fp); w.writerow(['feature_key','feature_text','sl0_included','sl1_included','sl2_included','param_name','param_required','ref_requirement_id'])
+        for r in features: w.writerow([r['feature_key'],r['feature_text'],r['sl0_included'],r['sl1_included'],r['sl2_included'],r['param_name'],r['param_required'],r['ref_requirement_id']])
 def write_contract_terms_csv(outdir, terms_dict):
-    _ensure(outdir)
-    fn=os.path.join(outdir,'contract_terms.csv')
+    _ensure(outdir); fn=os.path.join(outdir,'contract_terms.csv')
     with open(fn,'w',newline='') as fp:
         w=csv.writer(fp); w.writerow(['key','value'])
-        for k in sorted(terms_dict.keys()):
-            w.writerow([k,terms_dict[k]])
+        for k in sorted(terms_dict.keys()): w.writerow([k,terms_dict[k]])
 def write_requirements_matrix_csv(outdir, rows):
-    _ensure(outdir)
-    fn=os.path.join(outdir,'requirements_matrix.csv')
+    _ensure(outdir); fn=os.path.join(outdir,'requirements_matrix.csv')
     with open(fn,'w',newline='') as fp:
-        w=csv.writer(fp)
-        w.writerow(['req_id','kind','prompt_kind','krav_text','source_file','source_row'])
-        for r in rows:
-            w.writerow([r['req_id'],r['kind'],r['prompt_kind'],r['krav_text'],r['source_file'],r['source_row']])
+        w=csv.writer(fp); w.writerow(['req_id','kind','prompt_kind','krav_text','source_file','source_row'])
+        for r in rows: w.writerow([r['req_id'],r['kind'],r['prompt_kind'],r['krav_text'],r['source_file'],r['source_row']])
 def write_evaluation_items_csv(outdir, rows):
-    _ensure(outdir)
-    fn=os.path.join(outdir,'evaluation_items.csv')
+    _ensure(outdir); fn=os.path.join(outdir,'evaluation_items.csv')
     with open(fn,'w',newline='') as fp:
-        w=csv.writer(fp)
-        w.writerow(['eval_id','priority_rank','criterion','prompt_kind','krav_text','source_file','source_row'])
-        for r in rows:
-            w.writerow([r['eval_id'],r['priority_rank'],r['criterion'],r['prompt_kind'],r['krav_text'],r['source_file'],r['source_row']])
+        w=csv.writer(fp); w.writerow(['eval_id','priority_rank','criterion','prompt_kind','krav_text','source_file','source_row'])
+        for r in rows: w.writerow([r['eval_id'],r['priority_rank'],r['criterion'],r['prompt_kind'],r['krav_text'],r['source_file'],r['source_row']])
+def write_forms_constraints_csv(outdir, rows):
+    _ensure(outdir); fn=os.path.join(outdir,'forms_and_constraints.csv')
+    with open(fn,'w',newline='') as fp:
+        w=csv.writer(fp); w.writerow(['item','value'])
+        for r in rows: w.writerow([r['item'],r['value']])

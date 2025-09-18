@@ -6,7 +6,9 @@ from .merkle import write_receipts_and_root
 from .service_levels import extract as extract_service_levels
 from .contract_terms import extract as extract_contract_terms
 from .krav_csv import extract_from_zip as extract_krav_csv
-from .matrix import write_service_levels_csv, write_contract_terms_csv, write_requirements_matrix_csv, write_evaluation_items_csv
+from .itt import extract as extract_itt
+from .price_schema import extract as extract_price_schema
+from .matrix import write_service_levels_csv, write_contract_terms_csv, write_requirements_matrix_csv, write_evaluation_items_csv, write_price_schema_csv, write_forms_constraints_csv
 
 TOOL = "tender-digest"
 PACK = "tender-core"
