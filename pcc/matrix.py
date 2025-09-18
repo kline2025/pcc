@@ -41,3 +41,15 @@ def write_forms_constraints_csv(outdir, rows):
     with open(fn,'w',newline='') as fp:
         w=csv.writer(fp); w.writerow(['item','value','source_file','source_snippet'])
         for r in rows: w.writerow([r.get('item',''),r.get('value',''),r.get('source_file',''),r.get('source_snippet','')])
+
+
+def write_addenda_diff_csv(outdir, rows):
+    _ensure(outdir)
+    fn=os.path.join(outdir,'addenda_diff.csv')
+    if not rows:
+        return
+    with open(fn,'w',newline='') as fp:
+        w=csv.writer(fp)
+        w.writerow(['field','before_value','after_value','source_old','source_new'])
+        for r in rows:
+            w.writerow([r.get('field',''),r.get('before',''),r.get('after',''),r.get('source_old',''),r.get('source_new','')])

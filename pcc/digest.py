@@ -8,13 +8,15 @@ from .contract_terms import extract as extract_contract_terms
 from .krav_csv import extract_from_zip as extract_krav_csv
 from .itt import extract as extract_itt
 from .price_schema import extract as extract_price_schema
+from .formula_detect import scan_zip_for_formula
+from .addenda_diff import scan as scan_addenda
 from .matrix import (
     write_service_levels_csv,
     write_contract_terms_csv,
     write_requirements_matrix_csv,
     write_evaluation_items_csv,
     write_price_schema_csv,
-    write_forms_constraints_csv,
+    write_forms_constraints_csv, write_addenda_diff_csv,
 )
 
 TOOL = "tender-digest"
@@ -68,6 +70,8 @@ def main():
         price_entries, price_receipts = extract_price_schema(z, _asset_id_from(args.tender_zip,"pack"))
 
     rows = []
+    formula_ok=False
+    formula_receipts=[]
     checks = []
     rows.append({"type":"summary","asset_id":_asset_id_from(args.tender_zip,"pack"),
                  "docs_total":len(tender_members),"bytes_total":sum(m["size"] for m in tender_members),"ts":now_ts})
