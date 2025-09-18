@@ -29,15 +29,15 @@ def write_contract_terms_csv(outdir, terms_dict):
 def write_requirements_matrix_csv(outdir, rows):
     _ensure(outdir); fn=os.path.join(outdir,'requirements_matrix.csv')
     with open(fn,'w',newline='') as fp:
-        w=csv.writer(fp); w.writerow(['req_id','kind','prompt_kind','krav_text','source_file','source_row'])
-        for r in rows: w.writerow([r['req_id'],r['kind'],r['prompt_kind'],r['krav_text'],r['source_file'],r['source_row']])
+        w=csv.writer(fp); w.writerow(['req_id','section','kind','prompt_kind','value_hint','krav_text','source_file','source_sheet','source_row'])
+        for r in rows: w.writerow([r.get('req_id',''),r.get('section',''),r.get('kind',''),r.get('prompt_kind',''),r.get('value_hint',''),r.get('krav_text',''),r.get('source_file',''),r.get('source_sheet',''),r.get('source_row','')])
 def write_evaluation_items_csv(outdir, rows):
     _ensure(outdir); fn=os.path.join(outdir,'evaluation_items.csv')
     with open(fn,'w',newline='') as fp:
-        w=csv.writer(fp); w.writerow(['eval_id','priority_rank','criterion','prompt_kind','krav_text','source_file','source_row'])
-        for r in rows: w.writerow([r['eval_id'],r['priority_rank'],r['criterion'],r['prompt_kind'],r['krav_text'],r['source_file'],r['source_row']])
+        w=csv.writer(fp); w.writerow(['eval_id','section','priority_rank','criterion','prompt_kind','krav_text','source_file','source_sheet','source_row'])
+        for r in rows: w.writerow([r.get('eval_id',''),r.get('section',''),r.get('priority_rank',''),r.get('criterion',''),r.get('prompt_kind',''),r.get('krav_text',''),r.get('source_file',''),r.get('source_sheet',''),r.get('source_row','')])
 def write_forms_constraints_csv(outdir, rows):
     _ensure(outdir); fn=os.path.join(outdir,'forms_and_constraints.csv')
     with open(fn,'w',newline='') as fp:
-        w=csv.writer(fp); w.writerow(['item','value'])
-        for r in rows: w.writerow([r['item'],r['value']])
+        w=csv.writer(fp); w.writerow(['item','value','source_file','source_snippet'])
+        for r in rows: w.writerow([r.get('item',''),r.get('value',''),r.get('source_file',''),r.get('source_snippet','')])
