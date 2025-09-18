@@ -53,8 +53,10 @@ def main():
 
     rows = []
     checks = []
-    checks.append(Check(token="tender:pack:parse_ok", ok=True, details=f"docs={len(tender_members)}; allowed={len(tender_members)}", source=None))
-    rows.append({"type":"summary","asset_id":_asset_id_from(args.tender_zip,"pack"),"docs_total":len(tender_members),"bytes_total":sum(m["size"] for m in tender_members),"ts":now_ts})
+    rows.append({"type":"summary","asset_id":_asset_id_from(args.tender_zip,"pack"),
+                 "docs_total":len(tender_members),"bytes_total":sum(m["size"] for m in tender_members),"ts":now_ts})
+    checks.append(Check(token="tender:pack:parse_ok", ok=True,
+                        details=f"docs={len(tender_members)}; allowed={len(tender_members)}", source=None))
 
     if bilag10_txt:
         from .service_levels import extract as extract_service_levels
@@ -62,7 +64,8 @@ def main():
         features, svc_receipts = extract_service_levels(bilag10_txt, _asset_id_from(args.tender_zip,"pack"))
         rows.extend(_stamp_rows(svc_receipts, now_ts))
         write_service_levels_csv(matrix_dir, features)
-        checks.append(Check(token="tender:service:levels_matrix_built", ok=len(features)>0, details=f"features={len(features)}", source=None))
+        checks.append(Check(token="tender:service:levels_matrix_built", ok=len(features)>0,
+                            details=f"features={len(features)}", source=None))
 
     if ramme_txt:
         from .contract_terms import extract as extract_contract_terms
@@ -70,14 +73,16 @@ def main():
         terms, ct_receipts = extract_contract_terms(ramme_txt, _asset_id_from(args.tender_zip,"pack"))
         rows.extend(_stamp_rows(ct_receipts, now_ts))
         write_contract_terms_csv(matrix_dir, terms)
-        checks.append(Check(token="tender:contract:terms_extracted", ok=len(terms)>0, details=f"keys={len(terms)}", source=None))
+        checks.append(Check(token="tender:contract:terms_extracted", ok=len(terms)>0,
+                            details=f"keys={len(terms)}", source=None))
 
     receipts_path = os.path.join(proof_dir, "receipts.jsonl")
     root_path = os.path.join(proof_dir, "root.txt")
     write_receipts_and_root(receipts_path, root_path, rows)
 
     asset_id = _asset_id_from(args.tender_zip, "pack")
-    record = build_decision(TOOL, asset_id, token="ok", decision="allow", posture=args.posture, checks=checks, pack=PACK, registry_sha=args.registry_sha)
+    record = build_decision(TOOL, asset_id, token="ok", decision="allow", posture=args.posture,
+                            checks=checks, pack=PACK, registry_sha=args.registry_sha)
     print(json.dumps(record, ensure_ascii=False))
     print(record["reason"], file=sys.stderr)
     return record["exit_code"]
