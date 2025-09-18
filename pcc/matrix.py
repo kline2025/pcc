@@ -36,3 +36,19 @@ def write_contract_terms_csv(outdir, terms_dict):
         w=csv.writer(fp); w.writerow(['key','value'])
         for k in sorted(terms_dict.keys()):
             w.writerow([k,terms_dict[k]])
+def write_requirements_matrix_csv(outdir, rows):
+    _ensure(outdir)
+    fn=os.path.join(outdir,'requirements_matrix.csv')
+    with open(fn,'w',newline='') as fp:
+        w=csv.writer(fp)
+        w.writerow(['req_id','kind','prompt_kind','krav_text','source_file','source_row'])
+        for r in rows:
+            w.writerow([r['req_id'],r['kind'],r['prompt_kind'],r['krav_text'],r['source_file'],r['source_row']])
+def write_evaluation_items_csv(outdir, rows):
+    _ensure(outdir)
+    fn=os.path.join(outdir,'evaluation_items.csv')
+    with open(fn,'w',newline='') as fp:
+        w=csv.writer(fp)
+        w.writerow(['eval_id','priority_rank','criterion','prompt_kind','krav_text','source_file','source_row'])
+        for r in rows:
+            w.writerow([r['eval_id'],r['priority_rank'],r['criterion'],r['prompt_kind'],r['krav_text'],r['source_file'],r['source_row']])

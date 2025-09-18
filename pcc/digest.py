@@ -2,6 +2,9 @@ import argparse, json, os, sys, zipfile
 from datetime import datetime, timezone
 from .version import VERSION
 from .bedrock import build_decision, Check
+    from .krav_csv import extract_from_zip as extract_krav_csv
+    from .matrix import write_requirements_matrix_csv, write_evaluation_items_csv
+
 from .merkle import write_receipts_and_root
 
 TOOL = "tender-digest"
@@ -44,14 +47,21 @@ def main():
 
     now_ts = _iso_now()
     tender_members = []
+    
     with zipfile.ZipFile(args.tender_zip, "r") as z:
         for zi in z.infolist():
             if not zi.is_dir():
                 tender_members.append({"name": zi.filename, "size": zi.file_size})
         bilag10_txt = _read_text_from_zip(z, "Bilag10.txt")
         ramme_txt = _read_text_from_zip(z, "Rammeavtale.txt")
+        req_rows_z, eval_rows_z, krav_receipts = extract_krav_csv(z, _asset_id_from(args.tender_zip,"pack"))
+        req_rows.extend(req_rows_z)
+        eval_rows.extend(eval_rows_z)
+
 
     rows = []
+    req_rows=[]
+    eval_rows=[]
     checks = []
     rows.append({"type":"summary","asset_id":_asset_id_from(args.tender_zip,"pack"),
                  "docs_total":len(tender_members),"bytes_total":sum(m["size"] for m in tender_members),"ts":now_ts})
