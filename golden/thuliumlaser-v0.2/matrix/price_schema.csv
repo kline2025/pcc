@@ -1,0 +1,3 @@
+sheet,headers,constants
+Prisskjema_Hovedprodukt.csv,Produktbeskrivelse|Kommentar/instruks|Vekting opsjoner|Antall|Enhet|Kostnad,"{""warranty_years"": 2}"
+Prisskjema_Forbruksmateriell.csv,Type/produkt/artikkel|Produktbeskrivelse|Leverandørens artikkelnr.|Produsentnavn|UNSPSC|Antatt forbruk per år|Enhet|Salgsenhet/-forpakning|Antall enheter per salgsenhet|Pris per salgsenhet|Pris per enhet|SUM Totalpris (Evalueringspris – årlig sum),{}

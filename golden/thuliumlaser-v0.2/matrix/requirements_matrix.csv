@@ -1,0 +1,5 @@
+req_id,section,kind,prompt_kind,value_hint,krav_text,source_file,source_sheet,source_row
+M4,,mandatory,boolean,24 måneder,Leverandøren skal tilby garanti på minst 24 måneder. Bekreft.,Kravspesifikasjon_Minstekrav.csv,Kravspesifikasjon_Minstekrav.csv,2
+M6,,mandatory,boolean,230v,Utstyret skal kunne driftes på 2-fas 230V. Bekreft.,Kravspesifikasjon_Minstekrav.csv,Kravspesifikasjon_Minstekrav.csv,3
+M10,,mandatory,attachment,,Utstyret skal være CE-merket og oppfylle MDR. Legg ved samsvarserklæring.,Kravspesifikasjon_Minstekrav.csv,Kravspesifikasjon_Minstekrav.csv,4
+M25,,mandatory,boolean,10 år,Reservedeler skal være tilgjengelige i minimum 10 år. Bekreft.,Kravspesifikasjon_Minstekrav.csv,Kravspesifikasjon_Minstekrav.csv,5

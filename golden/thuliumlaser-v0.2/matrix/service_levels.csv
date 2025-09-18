@@ -1,0 +1,12 @@
+feature_key,feature_text,sl0_included,sl1_included,sl2_included,param_name,param_required,ref_requirement_id
+time_price_only,Timepris for arbeid,True,False,False,,False,
+preventive_maintenance,Preventivt vedlikehold,False,True,True,,False,
+pv_parts_and_recommended,Deler som inngår i produsentens PV,False,True,True,,False,
+safety_check,Sikkerhetskontroll,False,True,True,,False,
+security_updates,Sikkerhetsoppdateringer,False,True,True,,False,
+spare_parts_lead,Maksimum xx timers (y døgn) leveringstid på reservedeler,True,True,True,parts_lead_time,True,L3
+all_service_costs_included,Alle serviceutgifter inkludert,False,False,True,,False,
+acute_response_time,Maksimum oppmøtetid ved akuttservice,False,False,True,acute_response_time,True,L5
+phone_support_1h,Telefonsupport innen 1 time,True,True,True,,False,
+os_av_updates,Jevnlig sikkerhetsoppdatering av virusbeskyttelse og operativsystem,True,True,True,,False,
+software_upgrades,Alle Programvareoppdateringer inkludert nye versjoner,True,True,True,,False,

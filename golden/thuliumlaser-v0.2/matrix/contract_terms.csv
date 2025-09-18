@@ -1,0 +1,17 @@
+key,value
+authority_change_threshold_pct,2.0
+catalog_ld_nok_per_working_day,500.0
+delay_ld_max_working_days,100
+delivery_incoterms,DDP_Incoterms2020
+force_majeure_notice_days,15
+force_majeure_termination_days,75
+indexation_first_fixed_months,12
+indexation_index,KPI
+indexation_late_effect_months,2
+indexation_notice_weeks,4
+marketing_penalty_min_nok,10000.0
+marketing_penalty_pct,0.2
+payment_days,30
+probation_months,6
+probation_termination_notice_days,30
+termination_notice_months,6

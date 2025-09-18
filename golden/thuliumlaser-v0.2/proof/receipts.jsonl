@@ -1,0 +1,54 @@
+{"asset_id":"tender:pack/tender-min","bytes_total":4513,"docs_total":12,"ts":"2025-09-18T02:19:41Z","type":"summary"}
+{"asset_id":"tender:pack/tender-min","file":"Kravspesifikasjon_Minstekrav.csv","kind":"mandatory","prompt_kind":"boolean","req_id":"M4","row":2,"section":"","sheet_hash":"7258890554a4f161fd2890dda6a31c6f77a15d4f8dfc6c43b6619b29eb23a955","snippet":"Leverandøren skal tilby garanti på minst 24 måneder. Bekreft.","ts":"2025-09-18T02:19:41Z","type":"krav_req"}
+{"asset_id":"tender:pack/tender-min","file":"Kravspesifikasjon_Minstekrav.csv","kind":"mandatory","prompt_kind":"boolean","req_id":"M6","row":3,"section":"","sheet_hash":"7258890554a4f161fd2890dda6a31c6f77a15d4f8dfc6c43b6619b29eb23a955","snippet":"Utstyret skal kunne driftes på 2-fas 230V. Bekreft.","ts":"2025-09-18T02:19:41Z","type":"krav_req"}
+{"asset_id":"tender:pack/tender-min","file":"Kravspesifikasjon_Minstekrav.csv","kind":"mandatory","prompt_kind":"attachment","req_id":"M10","row":4,"section":"","sheet_hash":"7258890554a4f161fd2890dda6a31c6f77a15d4f8dfc6c43b6619b29eb23a955","snippet":"Utstyret skal være CE-merket og oppfylle MDR. Legg ved samsvarserklæring.","ts":"2025-09-18T02:19:41Z","type":"krav_req"}
+{"asset_id":"tender:pack/tender-min","file":"Kravspesifikasjon_Minstekrav.csv","kind":"mandatory","prompt_kind":"boolean","req_id":"M25","row":5,"section":"","sheet_hash":"7258890554a4f161fd2890dda6a31c6f77a15d4f8dfc6c43b6619b29eb23a955","snippet":"Reservedeler skal være tilgjengelige i minimum 10 år. Bekreft.","ts":"2025-09-18T02:19:41Z","type":"krav_req"}
+{"asset_id":"tender:pack/tender-min","criterion":"Produkt","eval_id":"P5","file":"Kravspesifikasjon_Evaluering.csv","priority_rank":"E1","row":2,"section":"","sheet_hash":"314fb795d8010e31d3960030e7af7a6f3e0381b5c02bb1c63933fae0b6716cad","snippet":"Hastighet for fragmentering av stein med lav retropulsjon.","ts":"2025-09-18T02:19:41Z","type":"krav_eval"}
+{"asset_id":"tender:pack/tender-min","criterion":"Leverandørtjenester","eval_id":"L3","file":"Kravspesifikasjon_Evaluering.csv","priority_rank":"E1","row":3,"section":"","sheet_hash":"314fb795d8010e31d3960030e7af7a6f3e0381b5c02bb1c63933fae0b6716cad","snippet":"Maksimal leveringstid for reservedeler (timer/døgn). Oppgi verdier.","ts":"2025-09-18T02:19:41Z","type":"krav_eval"}
+{"asset_id":"tender:pack/tender-min","criterion":"Leverandørtjenester","eval_id":"L5","file":"Kravspesifikasjon_Evaluering.csv","priority_rank":"E1","row":4,"section":"","sheet_hash":"314fb795d8010e31d3960030e7af7a6f3e0381b5c02bb1c63933fae0b6716cad","snippet":"Maksimal oppmøtetid ved akuttservice. Oppgi verdier.","ts":"2025-09-18T02:19:41Z","type":"krav_eval"}
+{"asset_id":"tender:pack/tender-min","eval_count":3,"req_count":4,"ts":"2025-09-18T02:19:41Z","type":"krav_summary"}
+{"item":"channel","source_file":"ITT.txt","source_snippet":"Mercell","ts":"2025-09-18T02:19:41Z","type":"submission","value":"Mercell"}
+{"item":"filename_limit_chars","source_file":"ITT.txt","source_snippet":"Filnavn på vedlegg må ikke overstige 40 tegn","ts":"2025-09-18T02:19:41Z","type":"submission","value":40}
+{"item":"language","source_file":"ITT.txt","source_snippet":"Språk: norsk","ts":"2025-09-18T02:19:41Z","type":"submission","value":"nb-NO"}
+{"item":"bid_validity_months","source_file":"ITT.txt","source_snippet":"Vedståelsesfrist: 6 måneder","ts":"2025-09-18T02:19:41Z","type":"submission","value":6}
+{"item":"alt_offers_allowed","source_file":"ITT.txt","source_snippet":"alternativ/parallelle tilbud aksepteres ikke","ts":"2025-09-18T02:19:41Z","type":"submission","value":false}
+{"item":"espd_required","source_file":"ITT.txt","source_snippet":"ESPD","ts":"2025-09-18T02:19:41Z","type":"forms","value":true}
+{"item":"sanctions_declaration_required","source_file":"ITT.txt","source_snippet":"Egenerklæring om russisk involvering","ts":"2025-09-18T02:19:41Z","type":"forms","value":true}
+{"asset_id":"tender:pack/tender-min","criterion":"Totalkostnad","pct":50,"snippet":" Totalkostnad 50 %","ts":"2025-09-18T02:19:41Z","type":"award_weight"}
+{"asset_id":"tender:pack/tender-min","criterion":"Produkt","pct":40,"snippet":" Produkt 40 %","ts":"2025-09-18T02:19:41Z","type":"award_weight"}
+{"asset_id":"tender:pack/tender-min","criterion":"Leverandørtjenester","pct":10,"snippet":" Leverandørtjenester 10 %","ts":"2025-09-18T02:19:41Z","type":"award_weight"}
+{"asset_id":"tender:pack/tender-min","total_pct":100,"ts":"2025-09-18T02:19:41Z","type":"award_weights_total"}
+{"asset_id":"tender:pack/tender-min","level":"Servicenivå 0","sheet":"Prisskjema_Hovedprodukt.csv","ts":"2025-09-18T02:19:41Z","type":"service_level_priceline_present"}
+{"asset_id":"tender:pack/tender-min","level":"Servicenivå 1","sheet":"Prisskjema_Hovedprodukt.csv","ts":"2025-09-18T02:19:41Z","type":"service_level_priceline_present"}
+{"asset_id":"tender:pack/tender-min","level":"Servicenivå 2","sheet":"Prisskjema_Hovedprodukt.csv","ts":"2025-09-18T02:19:41Z","type":"service_level_priceline_present"}
+{"asset_id":"tender:pack/tender-min","constants":{"warranty_years":2},"headers":"Produktbeskrivelse|Kommentar/instruks|Vekting opsjoner|Antall|Enhet|Kostnad","sheet":"Prisskjema_Hovedprodukt.csv","ts":"2025-09-18T02:19:41Z","type":"price_schema"}
+{"asset_id":"tender:pack/tender-min","constants":{},"headers":"Type/produkt/artikkel|Produktbeskrivelse|Leverandørens artikkelnr.|Produsentnavn|UNSPSC|Antatt forbruk per år|Enhet|Salgsenhet/-forpakning|Antall enheter per salgsenhet|Pris per salgsenhet|Pris per enhet|SUM Totalpris (Evalueringspris – årlig sum)","sheet":"Prisskjema_Forbruksmateriell.csv","ts":"2025-09-18T02:19:41Z","type":"price_schema"}
+{"asset_id":"tender:pack/tender-min","key":"time_price_only","param_name":"","param_required":false,"ref_requirement_id":"","sl0":true,"sl1":false,"sl2":false,"text":"Timepris for arbeid","ts":"2025-09-18T02:19:41Z","type":"service_feature"}
+{"asset_id":"tender:pack/tender-min","key":"preventive_maintenance","param_name":"","param_required":false,"ref_requirement_id":"","sl0":false,"sl1":true,"sl2":true,"text":"Preventivt vedlikehold","ts":"2025-09-18T02:19:41Z","type":"service_feature"}
+{"asset_id":"tender:pack/tender-min","key":"pv_parts_and_recommended","param_name":"","param_required":false,"ref_requirement_id":"","sl0":false,"sl1":true,"sl2":true,"text":"Deler som inngår i produsentens PV","ts":"2025-09-18T02:19:41Z","type":"service_feature"}
+{"asset_id":"tender:pack/tender-min","key":"safety_check","param_name":"","param_required":false,"ref_requirement_id":"","sl0":false,"sl1":true,"sl2":true,"text":"Sikkerhetskontroll","ts":"2025-09-18T02:19:41Z","type":"service_feature"}
+{"asset_id":"tender:pack/tender-min","key":"security_updates","param_name":"","param_required":false,"ref_requirement_id":"","sl0":false,"sl1":true,"sl2":true,"text":"Sikkerhetsoppdateringer","ts":"2025-09-18T02:19:41Z","type":"service_feature"}
+{"asset_id":"tender:pack/tender-min","key":"spare_parts_lead","param_name":"parts_lead_time","param_required":true,"ref_requirement_id":"L3","sl0":true,"sl1":true,"sl2":true,"text":"Maksimum xx timers (y døgn) leveringstid på reservedeler","ts":"2025-09-18T02:19:41Z","type":"service_feature"}
+{"asset_id":"tender:pack/tender-min","key":"all_service_costs_included","param_name":"","param_required":false,"ref_requirement_id":"","sl0":false,"sl1":false,"sl2":true,"text":"Alle serviceutgifter inkludert","ts":"2025-09-18T02:19:41Z","type":"service_feature"}
+{"asset_id":"tender:pack/tender-min","key":"acute_response_time","param_name":"acute_response_time","param_required":true,"ref_requirement_id":"L5","sl0":false,"sl1":false,"sl2":true,"text":"Maksimum oppmøtetid ved akuttservice","ts":"2025-09-18T02:19:41Z","type":"service_feature"}
+{"asset_id":"tender:pack/tender-min","key":"phone_support_1h","param_name":"","param_required":false,"ref_requirement_id":"","sl0":true,"sl1":true,"sl2":true,"text":"Telefonsupport innen 1 time","ts":"2025-09-18T02:19:41Z","type":"service_feature"}
+{"asset_id":"tender:pack/tender-min","key":"os_av_updates","param_name":"","param_required":false,"ref_requirement_id":"","sl0":true,"sl1":true,"sl2":true,"text":"Jevnlig sikkerhetsoppdatering av virusbeskyttelse og operativsystem","ts":"2025-09-18T02:19:41Z","type":"service_feature"}
+{"asset_id":"tender:pack/tender-min","key":"software_upgrades","param_name":"","param_required":false,"ref_requirement_id":"","sl0":true,"sl1":true,"sl2":true,"text":"Alle Programvareoppdateringer inkludert nye versjoner","ts":"2025-09-18T02:19:41Z","type":"service_feature"}
+{"asset_id":"tender:pack/tender-min","features":11,"ts":"2025-09-18T02:19:41Z","type":"service_levels"}
+{"asset_id":"tender:pack/tender-min","key":"delivery_incoterms","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":"DDP_Incoterms2020"}
+{"asset_id":"tender:pack/tender-min","key":"delay_ld_max_working_days","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":100}
+{"asset_id":"tender:pack/tender-min","key":"catalog_ld_nok_per_working_day","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":500.0}
+{"asset_id":"tender:pack/tender-min","key":"payment_days","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":30}
+{"asset_id":"tender:pack/tender-min","key":"indexation_index","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":"KPI"}
+{"asset_id":"tender:pack/tender-min","key":"indexation_first_fixed_months","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":12}
+{"asset_id":"tender:pack/tender-min","key":"indexation_notice_weeks","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":4}
+{"asset_id":"tender:pack/tender-min","key":"indexation_late_effect_months","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":2}
+{"asset_id":"tender:pack/tender-min","key":"authority_change_threshold_pct","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":2.0}
+{"asset_id":"tender:pack/tender-min","key":"probation_months","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":6}
+{"asset_id":"tender:pack/tender-min","key":"probation_termination_notice_days","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":30}
+{"asset_id":"tender:pack/tender-min","key":"termination_notice_months","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":6}
+{"asset_id":"tender:pack/tender-min","key":"force_majeure_termination_days","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":75}
+{"asset_id":"tender:pack/tender-min","key":"force_majeure_notice_days","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":15}
+{"asset_id":"tender:pack/tender-min","key":"marketing_penalty_pct","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":0.2}
+{"asset_id":"tender:pack/tender-min","key":"marketing_penalty_min_nok","ts":"2025-09-18T02:19:41Z","type":"contract_term","value":10000.0}
+{"asset_id":"tender:pack/tender-min","keys":16,"ts":"2025-09-18T02:19:41Z","type":"contract_terms"}

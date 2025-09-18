@@ -1,0 +1,4 @@
+eval_id,section,priority_rank,criterion,prompt_kind,krav_text,source_file,source_sheet,source_row
+P5,,E1,Produkt,text,Hastighet for fragmentering av stein med lav retropulsjon.,Kravspesifikasjon_Evaluering.csv,Kravspesifikasjon_Evaluering.csv,2
+L3,,E1,Leverandørtjenester,value,Maksimal leveringstid for reservedeler (timer/døgn). Oppgi verdier.,Kravspesifikasjon_Evaluering.csv,Kravspesifikasjon_Evaluering.csv,3
+L5,,E1,Leverandørtjenester,value,Maksimal oppmøtetid ved akuttservice. Oppgi verdier.,Kravspesifikasjon_Evaluering.csv,Kravspesifikasjon_Evaluering.csv,4

@@ -1,0 +1,8 @@
+item,value,source_file,source_snippet
+channel,Mercell,ITT.txt,Mercell
+filename_limit_chars,40,ITT.txt,Filnavn på vedlegg må ikke overstige 40 tegn
+language,nb-NO,ITT.txt,Språk: norsk
+bid_validity_months,6,ITT.txt,Vedståelsesfrist: 6 måneder
+alt_offers_allowed,False,ITT.txt,alternativ/parallelle tilbud aksepteres ikke
+espd_required,True,ITT.txt,ESPD
+sanctions_declaration_required,True,ITT.txt,Egenerklæring om russisk involvering
