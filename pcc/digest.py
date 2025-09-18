@@ -1,11 +1,12 @@
-import argparse, json, os, sys, zipfile
+import argparse, json, os, zipfile
 from datetime import datetime, timezone
 from .version import VERSION
 from .bedrock import build_decision, Check
-    from .krav_csv import extract_from_zip as extract_krav_csv
-    from .matrix import write_requirements_matrix_csv, write_evaluation_items_csv
-
 from .merkle import write_receipts_and_root
+from .service_levels import extract as extract_service_levels
+from .contract_terms import extract as extract_contract_terms
+from .krav_csv import extract_from_zip as extract_krav_csv
+from .matrix import write_service_levels_csv, write_contract_terms_csv, write_requirements_matrix_csv, write_evaluation_items_csv
 
 TOOL = "tender-digest"
 PACK = "tender-core"
@@ -47,30 +48,29 @@ def main():
 
     now_ts = _iso_now()
     tender_members = []
-    
     with zipfile.ZipFile(args.tender_zip, "r") as z:
         for zi in z.infolist():
             if not zi.is_dir():
                 tender_members.append({"name": zi.filename, "size": zi.file_size})
         bilag10_txt = _read_text_from_zip(z, "Bilag10.txt")
         ramme_txt = _read_text_from_zip(z, "Rammeavtale.txt")
-        req_rows_z, eval_rows_z, krav_receipts = extract_krav_csv(z, _asset_id_from(args.tender_zip,"pack"))
-        req_rows.extend(req_rows_z)
-        eval_rows.extend(eval_rows_z)
-
+        req_rows, eval_rows, krav_receipts = extract_krav_csv(z, _asset_id_from(args.tender_zip,"pack"))
 
     rows = []
-    req_rows=[]
-    eval_rows=[]
     checks = []
     rows.append({"type":"summary","asset_id":_asset_id_from(args.tender_zip,"pack"),
                  "docs_total":len(tender_members),"bytes_total":sum(m["size"] for m in tender_members),"ts":now_ts})
     checks.append(Check(token="tender:pack:parse_ok", ok=True,
                         details=f"docs={len(tender_members)}; allowed={len(tender_members)}", source=None))
 
+    if req_rows or eval_rows:
+        write_requirements_matrix_csv(matrix_dir, req_rows)
+        write_evaluation_items_csv(matrix_dir, eval_rows)
+        rows.extend(_stamp_rows(krav_receipts, now_ts))
+        checks.append(Check(token="tender:krav:matrices_built", ok=True,
+                            details=f"req={len(req_rows)}; eval={len(eval_rows)}", source=None))
+
     if bilag10_txt:
-        from .service_levels import extract as extract_service_levels
-        from .matrix import write_service_levels_csv
         features, svc_receipts = extract_service_levels(bilag10_txt, _asset_id_from(args.tender_zip,"pack"))
         rows.extend(_stamp_rows(svc_receipts, now_ts))
         write_service_levels_csv(matrix_dir, features)
@@ -78,8 +78,6 @@ def main():
                             details=f"features={len(features)}", source=None))
 
     if ramme_txt:
-        from .contract_terms import extract as extract_contract_terms
-        from .matrix import write_contract_terms_csv
         terms, ct_receipts = extract_contract_terms(ramme_txt, _asset_id_from(args.tender_zip,"pack"))
         rows.extend(_stamp_rows(ct_receipts, now_ts))
         write_contract_terms_csv(matrix_dir, terms)
@@ -94,7 +92,7 @@ def main():
     record = build_decision(TOOL, asset_id, token="ok", decision="allow", posture=args.posture,
                             checks=checks, pack=PACK, registry_sha=args.registry_sha)
     print(json.dumps(record, ensure_ascii=False))
-    print(record["reason"], file=sys.stderr)
+    print(record["reason"])
     return record["exit_code"]
 
 if __name__ == "__main__":
