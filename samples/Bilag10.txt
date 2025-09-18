@@ -1,0 +1,13 @@
+Servicenivåene 1-2 angir hva som inngår i de ulike opsjoner for serviceytelsen i tilknytning til avtale for kjøp av thuliumlaser.
+Servicenivå 0 vil alltid være gjeldende dersom det ikke er løst ut opsjon på servicenivå 2.
+Timepris for arbeid
+Preventivt vedlikehold, inkludert arbeid, reise og opphold
+Deler som inngår i produsentens PV (servicekit) samt øvrige deler som anbefales byttet
+Sikkerhetskontroll
+Sikkerhetsoppdateringer
+Maksimum xx timers (y døgn) leveringstid på reservedeler. (Ref. tilbyders besvarelse av krav nr. L3)
+Alle serviceutgifter inkludert alle kostnader i forbindelse med arbeid, reise, opphold, og alle deler.
+Maksimum oppmøtetid ved akuttservice: xx timer (y døgn). Hverdager mellom kl 8:00 og 16:00 (Ref. tilbyders besvarelse av krav nr. L5)
+Telefonsupport innen 1 time, hverdager mellom kl 8:00 og 16:00
+Jevnlig sikkerhetsoppdatering av virusbeskyttelse og operativsystem
+Alle Programvareoppdateringer inkludert nye versjoner og tilhørende utstyrsoppdateringer
