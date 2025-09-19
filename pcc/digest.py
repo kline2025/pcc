@@ -137,7 +137,8 @@ def main():
             rows.extend(_stamp_rows(cf_receipts, now_ts))
         if nv_consts:
             from .matrix import write_price_schema_csv
-            if not nv_written:
+            if nv_consts and not nv_written:
+            from .matrix import write_price_schema_csv
             write_price_schema_csv(matrix_dir, 'UnderlagNV_text', [], nv_consts)
             rows.extend(_stamp_rows(nv_receipts, now_ts))
             nv_written=True
@@ -151,7 +152,8 @@ def main():
             rows.extend(_stamp_rows(cf_receipts, now_ts))
         if nv_consts:
             from .matrix import write_price_schema_csv
-            if not nv_written:
+            if nv_consts and not nv_written:
+            from .matrix import write_price_schema_csv
             write_price_schema_csv(matrix_dir, 'UnderlagNV_text', [], nv_consts)
             rows.extend(_stamp_rows(nv_receipts, now_ts))
             nv_written=True
@@ -188,6 +190,7 @@ def main():
         checks.append(Check(token="tender:contract:terms_extracted", ok=len(terms)>0,
                             details=f"keys={len(terms)}", source=None))
 
+    terms = {}
     receipts_path = os.path.join(proof_dir, "receipts.jsonl")
     root_path = os.path.join(proof_dir, "root.txt")
     write_receipts_and_root(receipts_path, root_path, rows)
