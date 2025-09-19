@@ -10,6 +10,7 @@ from .itt import extract as extract_itt
 from .price_schema import extract as extract_price_schema
 from .matrix import write_criteria_and_formula_csv, write_submission_checklist_csv, write_variants_csv
 from .underlag_nv_text import extract_constants as extract_nv_text
+from .submission_checklist import extract_from_itt as extract_subm_itt
 from .criteria_and_formula import extract_from_itt as extract_cf_itt
 from .contract_eie_meglerstandard import extract as extract_eie
 from .contract_leie_statsbygg import extract as extract_leie
@@ -119,6 +120,24 @@ def main():
         if fc_rows:
             write_forms_constraints_csv(matrix_dir, fc_rows)
         rows.extend(_stamp_rows(itt_rows, now_ts))
+        if itt_text:
+            cf_rows, cf_total, cf_model, cf_scoring, cf_receipts = extract_cf_itt(itt_text)
+            subm_rows = extract_subm_itt(itt_text)
+            if subm_rows:
+                write_submission_checklist_csv(matrix_dir, subm_rows)
+                rows.append({'type':'submission_manifest','asset_id':_asset_id_from(args.tender_zip,'pack'),'count':len(subm_rows),'ts':now_ts})
+        if cf_rows:
+            for r in cf_rows:
+                r['group']='price' if 'pris' in r.get('criterion','').lower() else 'quality'
+                r['price_model']='npv_in_prisskjema' if cf_model else ''
+                r['scoring_model']=cf_scoring or ''
+                r['model_anchor']='Prisskjema'
+            write_criteria_and_formula_csv(matrix_dir, cf_rows)
+            rows.extend(_stamp_rows(cf_receipts, now_ts))
+        if nv_consts:
+            from .matrix import write_price_schema_csv
+            write_price_schema_csv(matrix_dir, 'UnderlagNV_text', [], nv_consts)
+            rows.extend(_stamp_rows(nv_receipts, now_ts))
         if cf_rows:
             for r in cf_rows:
                 r['group']='price' if 'pris' in r.get('criterion','').lower() else 'quality'
@@ -133,7 +152,14 @@ def main():
             rows.extend(_stamp_rows(nv_receipts, now_ts))
         vrows = detect_variants(z)
         if vrows:
+            any_decl = any(v.get('in_itt') or v.get('in_price') or v.get('in_contracts') for v in vrows)
+            if any_decl:
+                summary = "; ".join([f"{v['variant']}=ITT:{int(bool(v['in_itt']))}/Price:{int(bool(v['in_price']))}/Contracts:{int(bool(v['in_contracts']))}" for v in vrows])
+                checks.append(Check(token="tender:variants:declared", ok=True, details=summary, source=None))
+        if vrows:
             write_variants_csv(matrix_dir, vrows)
+        if cf_model:
+            checks.append(Check(token="tender:criteria:formula_disclosed", ok=True, details="present_in_text", source=None))
 
         for tok, ok, det in itt_checks:
             checks.append(Check(token=tok, ok=ok, details=det, source=None))
