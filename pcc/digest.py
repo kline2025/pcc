@@ -73,6 +73,7 @@ def main():
         cf_scoring=None
         nv_consts={}
         nv_written=False
+        nv_written=False
         nv_receipts=[]
         itt_text=None
         for zi in z.infolist():
@@ -137,27 +138,11 @@ def main():
             rows.extend(_stamp_rows(cf_receipts, now_ts))
         if nv_consts:
             from .matrix import write_price_schema_csv
-            if nv_consts and not nv_written:
+        if nv_consts and not nv_written:
             from .matrix import write_price_schema_csv
             write_price_schema_csv(matrix_dir, 'UnderlagNV_text', [], nv_consts)
             rows.extend(_stamp_rows(nv_receipts, now_ts))
             nv_written=True
-        if cf_rows:
-            for r in cf_rows:
-                rcrit=(r.get('criterion','') or '').lower(); r['group']='price' if ('pris' in rcrit or 'totalkostnad' in rcrit or 'total kostnad' in rcrit) else 'quality'
-                r['price_model']='npv_in_prisskjema' if cf_model else ''
-                r['scoring_model']=cf_scoring or ''
-                r['model_anchor']='Prisskjema'
-            write_criteria_and_formula_csv(matrix_dir, cf_rows)
-            rows.extend(_stamp_rows(cf_receipts, now_ts))
-        if nv_consts:
-            from .matrix import write_price_schema_csv
-            if nv_consts and not nv_written:
-            from .matrix import write_price_schema_csv
-            write_price_schema_csv(matrix_dir, 'UnderlagNV_text', [], nv_consts)
-            rows.extend(_stamp_rows(nv_receipts, now_ts))
-            nv_written=True
-        vrows = detect_from_path(args.tender_zip)
         if vrows:
             any_decl = any(v.get('in_itt') or v.get('in_price') or v.get('in_contracts') for v in vrows)
             if any_decl:
