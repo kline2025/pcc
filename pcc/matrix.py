@@ -63,3 +63,37 @@ def write_variants_csv(outdir, rows):
         w.writerow(['variant','present_in_ITT','present_in_Prisskjema','present_in_Contracts'])
         for r in rows:
             w.writerow([r.get('variant',''),bool(r.get('in_itt')),bool(r.get('in_price')),bool(r.get('in_contracts'))])
+
+
+def write_criteria_and_formula_csv(outdir, rows):
+    _ensure(outdir)
+    fn=os.path.join(outdir,'criteria_and_formula.csv')
+    with open(fn,'w',newline='') as fp:
+        w=csv.writer(fp)
+        w.writerow(['criterion','weight_pct','group','total_pct','price_model','scoring_model','model_anchor'])
+        for r in rows:
+            w.writerow([
+                r.get('criterion',''),
+                r.get('weight_pct',''),
+                r.get('group',''),
+                r.get('total_pct',''),
+                r.get('price_model',''),
+                r.get('scoring_model',''),
+                r.get('model_anchor','')
+            ])
+
+def write_submission_checklist_csv(outdir, rows):
+    _ensure(outdir)
+    fn=os.path.join(outdir,'submission_checklist.csv')
+    with open(fn,'w',newline='') as fp:
+        w=csv.writer(fp)
+        w.writerow(['doc_code','title','phase','mandatory','source_file','snippet'])
+        for r in rows:
+            w.writerow([
+                r.get('doc_code',''),
+                r.get('title',''),
+                r.get('phase',''),
+                bool(r.get('mandatory')),
+                r.get('source_file',''),
+                r.get('snippet','')
+            ])

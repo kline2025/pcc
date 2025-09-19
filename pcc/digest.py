@@ -8,6 +8,9 @@ from .contract_terms import extract as extract_contract_terms
 from .krav_csv import extract_from_zip as extract_krav_csv
 from .itt import extract as extract_itt
 from .price_schema import extract as extract_price_schema
+from .matrix import write_criteria_and_formula_csv, write_submission_checklist_csv, write_variants_csv
+from .underlag_nv_text import extract_constants as extract_nv_text
+from .criteria_and_formula import extract_from_itt as extract_cf_itt
 from .contract_eie_meglerstandard import extract as extract_eie
 from .contract_leie_statsbygg import extract as extract_leie
 from .variants import detect as detect_variants
@@ -19,7 +22,7 @@ from .matrix import (
     write_requirements_matrix_csv,
     write_evaluation_items_csv,
     write_price_schema_csv,
-    write_forms_constraints_csv, write_variants_csv, write_addenda_diff_csv,
+    write_forms_constraints_csv, write_criteria_and_formula_csv, write_submission_checklist_csv, write_variants_csv, write_criteria_and_formula_csv, write_submission_checklist_csv, write_variants_csv, write_criteria_and_formula_csv, write_submission_checklist_csv, write_variants_csv, write_variants_csv, write_addenda_diff_csv,
 )
 
 TOOL = "tender-digest"
@@ -63,6 +66,28 @@ def main():
     now_ts = _iso_now()
     tender_members = []
     with zipfile.ZipFile(args.tender_zip, "r") as z:
+        cf_rows=[]
+        cf_total=None
+        cf_model=False
+        cf_scoring=None
+        nv_consts={}
+        nv_receipts=[]
+        itt_text=None
+        for zi in z.infolist():
+            if zi.is_dir():
+                continue
+            n=zi.filename.lower()
+            if n.endswith('itt.txt'):
+                itt_text=z.read(zi.filename).decode('utf-8','ignore')
+            if n.endswith('.txt') and ('underlag' in n or 'nåverdi' in n or 'npv' in n or 'prisskjema' in n):
+                t=z.read(zi.filename).decode('utf-8','ignore')
+                c, rc = extract_nv_text(t)
+                if c:
+                    nv_consts.update(c)
+                    nv_receipts.extend(rc)
+        if itt_text:
+            cf_rows, cf_total, cf_model, cf_scoring, cf_receipts = extract_cf_itt(itt_text)
+
         for zi in z.infolist():
             if not zi.is_dir():
                 tender_members.append({"name": zi.filename, "size": zi.file_size})
@@ -94,6 +119,22 @@ def main():
         if fc_rows:
             write_forms_constraints_csv(matrix_dir, fc_rows)
         rows.extend(_stamp_rows(itt_rows, now_ts))
+        if cf_rows:
+            for r in cf_rows:
+                r['group']='price' if 'pris' in r.get('criterion','').lower() else 'quality'
+                r['price_model']='npv_in_prisskjema' if cf_model else ''
+                r['scoring_model']=cf_scoring or ''
+                r['model_anchor']='Prisskjema'
+            write_criteria_and_formula_csv(matrix_dir, cf_rows)
+            rows.extend(_stamp_rows(cf_receipts, now_ts))
+        if nv_consts:
+            from .matrix import write_price_schema_csv
+            write_price_schema_csv(matrix_dir, 'UnderlagNV_text', [], nv_consts)
+            rows.extend(_stamp_rows(nv_receipts, now_ts))
+        vrows = detect_variants(z)
+        if vrows:
+            write_variants_csv(matrix_dir, vrows)
+
         for tok, ok, det in itt_checks:
             checks.append(Check(token=tok, ok=ok, details=det, source=None))
 
