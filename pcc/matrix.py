@@ -53,3 +53,13 @@ def write_addenda_diff_csv(outdir, rows):
         w.writerow(['field','before_value','after_value','source_old','source_new'])
         for r in rows:
             w.writerow([r.get('field',''),r.get('before',''),r.get('after',''),r.get('source_old',''),r.get('source_new','')])
+
+
+def write_variants_csv(outdir, rows):
+    _ensure(outdir)
+    fn=os.path.join(outdir,'variants.csv')
+    with open(fn,'w',newline='') as fp:
+        w=csv.writer(fp)
+        w.writerow(['variant','present_in_ITT','present_in_Prisskjema','present_in_Contracts'])
+        for r in rows:
+            w.writerow([r.get('variant',''),bool(r.get('in_itt')),bool(r.get('in_price')),bool(r.get('in_contracts'))])

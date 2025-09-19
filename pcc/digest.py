@@ -8,6 +8,9 @@ from .contract_terms import extract as extract_contract_terms
 from .krav_csv import extract_from_zip as extract_krav_csv
 from .itt import extract as extract_itt
 from .price_schema import extract as extract_price_schema
+from .contract_eie_meglerstandard import extract as extract_eie
+from .contract_leie_statsbygg import extract as extract_leie
+from .variants import detect as detect_variants
 from .formula_detect import scan_zip_for_formula
 from .addenda_diff import scan as scan_addenda
 from .matrix import (
@@ -16,7 +19,7 @@ from .matrix import (
     write_requirements_matrix_csv,
     write_evaluation_items_csv,
     write_price_schema_csv,
-    write_forms_constraints_csv, write_addenda_diff_csv,
+    write_forms_constraints_csv, write_variants_csv, write_addenda_diff_csv,
 )
 
 TOOL = "tender-digest"
