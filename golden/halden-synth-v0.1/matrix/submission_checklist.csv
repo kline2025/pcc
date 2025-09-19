@@ -1,0 +1,5 @@
+doc_code,title,phase,mandatory,source_file,snippet
+DOK01,Tilbudsbrev. DOK02 Skatteattest. DOK08 Utfylt kravspesifikasjon. DOK18 Utfylt prisskjema.,,True,ITT.txt,DOK01 Tilbudsbrev. DOK02 Skatteattest. DOK08 Utfylt kravspesifikasjon. DOK18 Utfylt prisskjema.
+DOK02,Skatteattest. DOK08 Utfylt kravspesifikasjon. DOK18 Utfylt prisskjema.,,True,ITT.txt,DOK01 Tilbudsbrev. DOK02 Skatteattest. DOK08 Utfylt kravspesifikasjon. DOK18 Utfylt prisskjema.
+DOK08,Utfylt kravspesifikasjon. DOK18 Utfylt prisskjema.,,True,ITT.txt,DOK01 Tilbudsbrev. DOK02 Skatteattest. DOK08 Utfylt kravspesifikasjon. DOK18 Utfylt prisskjema.
+DOK18,Utfylt prisskjema.,,True,ITT.txt,DOK01 Tilbudsbrev. DOK02 Skatteattest. DOK08 Utfylt kravspesifikasjon. DOK18 Utfylt prisskjema.

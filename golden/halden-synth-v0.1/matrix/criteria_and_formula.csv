@@ -1,0 +1,3 @@
+criterion,weight_pct,group,total_pct,price_model,scoring_model,model_anchor
+Pris,50,price,100,npv_in_prisskjema,lineær,Prisskjema
+Kvalitet,50,quality,100,npv_in_prisskjema,lineær,Prisskjema
