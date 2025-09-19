@@ -6,9 +6,13 @@ def extract(text):
     if re.search(r'80\s*%[^%\n]*konsumprisindeks|80\s*%[^%\n]*KPI', text, re.I):
         terms['leie:indexation_80pct_cpi']=True
         receipts.append({'type':'contract_term','path':'Leie','key':'indexation_80pct_cpi','value':True})
-    if re.search(r'1\s*/\s*365[^a-zA-Z]*dag', text, re.I):
+    m=re.search(r'1\s*/\s*365[^\n\r]*?per\s*(arbeidsdag|kalenderdag)', text, re.I)
+    if m:
         terms['leie:ld_per_day_fraction']='1/365_annual_rent'
+        unit = 'working_day' if m.group(1).lower().startswith('arbeids') else 'calendar_day'
+        terms['leie:ld_day_unit']=unit
         receipts.append({'type':'contract_term','path':'Leie','key':'ld_per_day_fraction','value':'1/365_annual_rent'})
+        receipts.append({'type':'contract_term','path':'Leie','key':'ld_day_unit','value':unit})
     m=re.search(r'(\d+)\s*måneder[^.\n]*erstatningsansvar|(\d+)\s*måneds\s*leie[^.\n]*som\s*grense', text, re.I)
     if m:
         val=next(g for g in m.groups() if g)

@@ -97,3 +97,13 @@ def write_submission_checklist_csv(outdir, rows):
                 r.get('source_file',''),
                 r.get('snippet','')
             ])
+
+
+def write_cross_refs_csv(outdir, rows):
+    _ensure(outdir)
+    fn=os.path.join(outdir,'cross_refs.csv')
+    with open(fn,'w',newline='') as fp:
+        w=csv.writer(fp)
+        w.writerow(['topic','spec_value','contract_value','unit_spec','unit_contract'])
+        for r in rows:
+            w.writerow([r.get('topic',''),r.get('spec_value',''),r.get('contract_value',''),r.get('unit_spec',''),r.get('unit_contract','')])
