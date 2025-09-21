@@ -1,0 +1,66 @@
+from typing import List, Dict, Tuple
+
+def _row(req_id, section, kind, prompt_kind, value_hint, krav_text, src, src_row):
+    return {"req_id":req_id,"section":section,"kind":kind,"prompt_kind":prompt_kind,"value_hint":value_hint,"krav_text":krav_text,"source_file":src,"source_row":src_row}
+
+def extract_funksjonsprogram(text: str, src_file: str) -> Tuple[List[Dict], List[Dict]]:
+    R=[]
+    R.append(_row("1.1-ADK-SØR","Innkjøringssone (ute)","mandatory","description","2 inn / 1 ut","Etablere kjørbar adkomst i sør: 2 løp inn og 1 løp ut.",src_file,"§1.1"))
+    R.append(_row("1.1-PORTER-SØR","Innkjøringssone (ute)","mandatory","value","2 foldeporter á 4 m (4/8 m fri bredde)","To elektrisk styrte foldeporter á 4 m fri åpning som kan åpnes uavhengig eller samtidig, med lysregulering og manuell styring.",src_file,"§1.1"))
+    R.append(_row("1.1-ANPR","Innkjøringssone (ute)","mandatory","boolean","","Mast for skiltegjenkjenning (ANPR) skal medtas.",src_file,"§1.1"))
+    R.append(_row("1.2-PORTTELEFON","Innkjøringssone (ute)","mandatory","attachment","svanehals stativ x2 høyder","Porttelefon på dobbelt «svanehals»-stativ ved innkjøring til indre område, inkl. kabling.",src_file,"§1.2"))
+    R.append(_row("1.3-DRENERING","Indre kjørbart område","mandatory","boolean","kjøresterke sluk/renner","Manøvreringsareal med kjøresterke sluk eller renner; renovasjonsbil skal kunne hente containere.",src_file,"§1.3"))
+    R.append(_row("1.4-RAMPE-MÅL","Inngående rampe","mandatory","value","Lasterampe d=3 m, h=0,90 m; skjermtak utkrag 1 m; fri h under skjermtak 4,5 m","Etablere lasteramper med oppgitte mål; overbygg/skjermtak; trapper for personell.",src_file,"§1.4"))
+    R.append(_row("1.4-LASTEHUS","Inngående rampe","mandatory","value","1 stk lastehus (port h=1,25 m)","Ett lastehus ved inngående rampe, egen port mot varemottak; avfallsrampe lik lastehøyde.",src_file,"§1.4"))
+    R.append(_row("1.5-ADK-NORD","Innkjøringssone (nord)","mandatory","value","1 foldeport 4 m + 1 gangport","Inn-/utkjøring nord: elektrisk foldeport 4 m fri bredde med lysregulering og gangport i gjerde.",src_file,"§1.5"))
+    R.append(_row("2.1-VAREMOTTAK-MILJØ","Varemottak","mandatory","value","fri h ≥4 m; 15°C vinter / 26°C sommer","Varemottak med fri høyde og inneklimakrav. Plass til manøvrering og korttidsoppstilling av 8 paller.",src_file,"§2.1"))
+    R.append(_row("2.1-VAREMOTTAK-EL","Varemottak","mandatory","boolean","EL til dører/porter/lastehus","Elektrisk tilkobling og automatikk for dører, porter og lastehus. Gulv dimensjoneres for truck og traller.",src_file,"§2.1"))
+    R.append(_row("2.1-HURTIGPORT","Varemottak","mandatory","boolean","","Hurtigport mot 5.4 Retur.",src_file,"§2.1"))
+    R.append(_row("2.2-REG-ARBPL","Varemottak/Registrering","mandatory","value","1 arbeidsstasjon","Merket arbeidsstasjon for veiledning av sjåfør i tilknytning til varemottak.",src_file,"§2.2"))
+    R.append(_row("2.3-AVFALL-ROM","Varemottak/Avfall","mandatory","value","areal 25 m²; fri h ≥4 m; 15°C/26°C","Eget avfallsrom med hurtigport og direkte port ut. Lasterampe på utsiden. Plass til minst 2 containere; plass for krokbil.",src_file,"§2.3"))
+    R.append(_row("2.3-AVFALL-TEK","Varemottak/Avfall","mandatory","boolean","2 stikk for komprimator; utstyrsrom","To uttak for papp-/plastpresse; utslagsvask, sluk, KV/VV; vanntett gulv med fall til sluk.",src_file,"§2.3"))
+    R.append(_row("2.4-HCWC-P","Varemottak","mandatory","value","6 m²; 22°C vinter / 26°C sommer","HCWC-P i tilknytning til varemottak, universelt utformet.",src_file,"§2.4"))
+    R.append(_row("2.5-RENHOLD","Varemottak/Renhold","mandatory","value","16 m²; KV/VV; utslagsvask; sluk","Avlåst lager/renholdsrom; tilkobling for mopp-/gulvvaskemaskin; sluk for tømming.",src_file,"§2.5"))
+    R.append(_row("3.1-SCANNER-LØP","Kjøretøyhall","mandatory","value","2 løp (1 skanner + 1 manuell)","Kjøretøyhall med to løp: kjøretøyskanner og manuell kontroll.",src_file,"§3.1"))
+    R.append(_row("3.1-SCANNER-BREDDE","Kjøretøyhall","mandatory","value","løp for skanner b ≥14 m","Bredde for skannerløp minimum 14 m; gjennomganger mellom løpene.",src_file,"§3.1"))
+    R.append(_row("3.1-SCANNER-HØYDE","Kjøretøyhall","mandatory","value","fri h ≥7 m; frostfri ≥+5°C","Fri høyde og frostfritt inneklima i kjøretøyhall.",src_file,"§3.1"))
+    R.append(_row("3.1-SCANNER-EL","Kjøretøyhall","mandatory","value","400 V 3~; ca. 60 kVA","Fast EL-tilkobling for kjøretøyskanner; uttak for høyttrykksspyler.",src_file,"§3.1"))
+    R.append(_row("3.1-SCANNER-VVS","Kjøretøyhall","mandatory","boolean","KV/VV; sluk/renner til oljeutskiller; snøsmelte/gulvvarme ved porter","Vannuttak og avløp; gulv med fall til sluk.",src_file,"§3.1"))
+    R.append(_row("3.1-SCANNER-PORTER","Kjøretøyhall","mandatory","value","porter 4×5 m (BxH)","Portmål ved hall.",src_file,"§3.1"))
+    R.append(_row("3.2-MAN-KONTROLL","Kjøretøyhall","mandatory","value","fri h ≥7 m; porter 4×5 m","Manuell kontroll: samme inneklima og portmål som skannerløp.",src_file,"§3.2"))
+    R.append(_row("3.3-VENTEROM","Kjøretøyhall","mandatory","value","9 m²; 4×2× data/EL","Venterom sjåfør: 4 doble stikk og 1 dobbelt datauttak; vindu mot manuell kontroll og i dør.",src_file,"§3.3"))
+    R.append(_row("5.1-KONTROLLROM-SAV","Kontrollert sone","mandatory","value","27 m²; 4 arb.pl.; 10×dobbel EL + 10×data pr plass","Kontrollrom for gjennomlysning og skanner; manuell port/bom betjening.",src_file,"§5.1"))
+    R.append(_row("5.2-TEKNISK-SCANNER","Kontrollert sone","mandatory","value","11 m²; 4×dobbel EL; kjølebehov ≈2 kW","Teknisk rom for skanner med egen kurs; kjøling ca. 2 kW.",src_file,"§5.2"))
+    R.append(_row("5.3-KONTOR-LOP","Kontrollert sone","mandatory","value","27 m²; 4 arb.pl.","Kontor LOP (4 plasser).",src_file,"§5.3"))
+    R.append(_row("5.4-RETUR","Kontrollert sone","mandatory","value","belysning ≥500 lux; 2 arb.stasjoner","Retursone for pakking av inn- og utgående varer.",src_file,"§5.4"))
+    R.append(_row("5.5-BUFFER","Kontrollert sone","mandatory","value","248 m²; fri h 4,4 m","Bufferområde med pallereoler.",src_file,"§5.5"))
+    R.append(_row("5.6-LADING","Kontrollert sone","mandatory","value","6 stk ladeuttak (hver sin kurs)","Oppstilling, lading og vedlikehold av trucker: 6 uttak med egne kurser.",src_file,"§5.6"))
+    R.append(_row("5.8-UTG-OPPST","Kontrollert sone","mandatory","value","96 m²; fri h 4,0 m; 15°C/26°C","Utgående oppstillingsområde med port til effektiv lasting.",src_file,"§5.8"))
+    R.append(_row("5.9-UTG-RAMPE","Kontrollert sone","mandatory","value","rampe d≥3 m; h=0,95 m; skjermtak ≥1 m; fri h under tak 4,5 m","Utgående rampe med lastehus for mindre lastebil; trapper ved ramper/lastehus.",src_file,"§5.9"))
+    R.append(_row("6.1-MULTI-1P","Arbeidsplasser","mandatory","value","6 m²; 1 arb.pl.; 1 data + EL","Multirom 1 arbeidsplass.",src_file,"§6.1"))
+    R.append(_row("6.2-MULTI-2P","Arbeidsplasser","mandatory","value","12 m²; 2 arb.pl.","Multirom 2 arbeidsplasser.",src_file,"§6.2"))
+    R.append(_row("6.3-MØTE","Arbeidsplasser","mandatory","value","16 m²; AV-forberedt; 2 arb.stasjoner + 4 data/8 EL","Møterom AV-forberedt.",src_file,"§6.3"))
+    R.append(_row("6.4-MØTE/SPIS","Arbeidsplasser","mandatory","value","35 m²; tekjøkken; 4 data/8 EL + 8 EL","Møte/spis med tekjøkken; AV-forberedt.",src_file,"§6.4"))
+    R.append(_row("6.6-GARDEROBE","Arbeidsplasser","mandatory","value","34 m²; ≥4 omkledningsrom + 2 WC","Garderobe nær inngang; tilrettelegges for brukers skap.",src_file,"§6.6"))
+    R.append(_row("7.3-DSS-TEKNISK","Teknisk rom","mandatory","value","35 m²; UPS ≥20 kurser; kjøling ≈20 kW; antistatisk belegg; uten datagulv; slokkeanlegg","Datarom for DSS; alle kurser via UPS.",src_file,"§7.3"))
+    R.append(_row("8.1-CARPORT","Uteområder","mandatory","value","fri h 3,8 m; 3× varebil + 2× L; SB-lager 20 m²; nødstrøm 11 m²","Carport med faste vegger på tre sider; betongsåle for reservekraft og føringsveier.",src_file,"§9.8"))
+    return R, []
+
+def extract_uu_plan(text: str, src_file: str) -> Tuple[List[Dict], List[Dict]]:
+    R=[]
+    R.append(_row("UU-1-ANSVAR","Universell utforming (UU)","mandatory","boolean","ARK ansvarlig","Prosjekterende ARK har ansvar for å utarbeide tverrfaglig oppfølgingsplan for UU.",src_file,"§1"))
+    R.append(_row("UU-2-DYNAMISK","Universell utforming (UU)","mandatory","boolean","levende dokument","Planen skal være dynamisk og revideres gjennom prosessen.",src_file,"§1"))
+    R.append(_row("UU-3-AVVIK","Universell utforming (UU)","mandatory","attachment","avvikslogg","Alle avvik skal loggføres med beskrivelse, ansvar og frist.",src_file,"§1"))
+    R.append(_row("UU-5-FORANKRING","Universell utforming (UU)","mandatory","attachment","lovverk/TEK/NS","Forankres i relevant lovverk, TEK og standarder; angi mål/ambisjonsnivå.",src_file,"§1.2"))
+    R.append(_row("UU-6-KVALITETSGJENNOMGANG","Universell utforming (UU)","mandatory","boolean","fasekontroller","UU skal kvalitetssjekkes ved fasegjennomganger.",src_file,"§1.3"))
+    R.append(_row("UU-7-REVISJON","Universell utforming (UU)","mandatory","boolean","kvalitetsmål faste","Kvalitetsmål revideres ikke; tiltak kan endres.",src_file,"§1.7"))
+    R.append(_row("UU-8-VERKTØY","Universell utforming (UU)","mandatory","attachment","Uu-sjekker BIM; sjekklister","Verktøy: Uu-sjekker BIM (Solibri) og sjekklister.",src_file,"§1.8"))
+    R.append(_row("UU-9-FAKTORENE","Universell utforming (UU)","mandatory","description","tverrfaglige tema","Veifinning, lydklima, inneklima, belysning, brann, utearealer, dørløsninger, publikumsarealer.",src_file,"§3"))
+    R.append(_row("UU-10-SKISSE","Skisseprosjekt","mandatory","boolean","UU i konsept","UU ivaretas ved valg av hovedkonsept.",src_file,"§3.1"))
+    R.append(_row("UU-11-FORPROSJEKT","Forprosjekt","mandatory","boolean","bearbeiding/UU","UU følges opp ved bearbeidelse av hovedkonsept; avklar behov for uavhengig kontroll.",src_file,"§3.1"))
+    R.append(_row("UU-12-DETALJERING","Detaljeringsfase","mandatory","attachment","planer med betydning for UU","Kvalitetssikre planer for møblering, evakuering, skilting, lyssetting.",src_file,"§3.2"))
+    R.append(_row("UU-13-BYGGEFASE","Byggefase","mandatory","boolean","kompetanse/utførelse","Sikre kompetanse og kontroll i utførelsesfasen.",src_file,"§3.2"))
+    R.append(_row("UU-14-BYGGFORALLE","Byggefase","mandatory","attachment","registrering","Planlegg for registrering i «Bygg for alle».",src_file,"§3.2"))
+    R.append(_row("UU-15-OMFANG-FAG","Universell utforming (UU)","mandatory","boolean","alle prosjekterende fag","Planen gjelder fra skisse til oppfølging på byggeplass for alle prosjekterende fag.",src_file,"§1.6"))
+    R.append(_row("UU-16-FORMÅL","Universell utforming (UU)","mandatory","description","mål utover TEK","Vis hvordan prosjektet sikrer UU-mål utover TEK med strategi/tiltak/ansvar.",src_file,"§2.1"))
+    return R, []

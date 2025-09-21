@@ -8,6 +8,7 @@ from .contract_terms import extract as extract_contract_terms
 from .krav_csv import extract_from_zip as extract_krav_csv
 from .itt import extract as extract_itt
 from .price_schema import extract as extract_price_schema
+from .extract_hmn_invasive import extract_itt, extract_prisskjema, extract_ramme
 from .matrix import write_criteria_and_formula_csv, write_submission_checklist_csv, write_variants_csv
 from .underlag_nv_text import extract_constants as extract_nv_text
 from .submission_checklist import extract_from_itt as extract_subm_itt
@@ -67,6 +68,36 @@ def main():
     now_ts = _iso_now()
     tender_members = []
     with zipfile.ZipFile(args.tender_zip, "r") as z:
+        # hmn_invasive_call
+        itt_txt=None; pris_txt=None; ramme_txt=None
+        for zi in z.infolist():
+            name=zi.filename.lower()
+            if name.endswith('.txt') and ('konkurransebestemmelser' in name or 'itt' in name):
+                itt_txt = z.read(zi.filename).decode('utf-8','ignore')
+            if name.endswith('.txt') and 'prisskjema' in name:
+                pris_txt = z.read(zi.filename).decode('utf-8','ignore')
+            if name.endswith('.txt') and 'rammeavtale' in name:
+                ramme_txt = z.read(zi.filename).decode('utf-8','ignore')
+
+        if itt_txt:
+            fc, subm, cf, rc = extract_itt(itt_txt, 'Konkurransebestemmelser.pdf')
+            if fc: write_forms_constraints_csv(matrix_dir, fc)
+            if subm: write_submission_checklist_csv(matrix_dir, subm)
+            if cf: write_criteria_and_formula_csv(matrix_dir, cf)
+            rows.extend(_stamp_rows(rc, now_ts))
+        if pris_txt:
+            consts, rc2 = extract_prisskjema(pris_txt, 'Vedlegg 03 Prisskjema.pdf')
+            if consts:
+                from .matrix import write_price_schema_csv
+                write_price_schema_csv(matrix_dir, 'Prisskjema', [], consts)
+            rows.extend(_stamp_rows(rc2, now_ts))
+        if ramme_txt:
+            terms, rc3 = extract_ramme(ramme_txt, 'Vedlegg 07 Rammeavtale.docx')
+            if terms:
+                from .matrix import write_contract_terms_csv
+                write_contract_terms_csv(matrix_dir, terms)
+            rows.extend(_stamp_rows(rc3, now_ts))
+    
         cf_rows=[]
         cf_total=None
         cf_model=False

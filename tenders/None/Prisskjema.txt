@@ -1,0 +1,2 @@
+Kolonner: Antatt mengde pr. år; Enhet; Tilbudt pris pr stk HF; Tilbudt pris pr stk LS; Totalsum pr. år.
+Vareprøve Ja/Nei i egen kolonne. HF 30 % / LS 70 % gjelder. Totalsum pr. år = ((HF*0,3)+(LS*0,7))*AntattMengde.

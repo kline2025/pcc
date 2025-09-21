@@ -1,3 +1,4 @@
+import csv
 import os,csv,json
 def _ensure(outdir): os.makedirs(outdir,exist_ok=True)
 def write_requirements_csv(outdir, rows):
@@ -107,3 +108,13 @@ def write_cross_refs_csv(outdir, rows):
         w.writerow(['topic','spec_value','contract_value','unit_spec','unit_contract'])
         for r in rows:
             w.writerow([r.get('topic',''),r.get('spec_value',''),r.get('contract_value',''),r.get('unit_spec',''),r.get('unit_contract','')])
+
+
+def write_service_sla_csv(outdir, items):
+    _ensure(outdir)
+    fn = os.path.join(outdir, 'service_sla.csv')
+    with open(fn, 'w', newline='') as fp:
+        w = csv.writer(fp)
+        w.writerow(['key','value','unit','text'])
+        for it in items:
+            w.writerow([it.get('key',''), it.get('value',''), it.get('unit',''), it.get('text','')])
