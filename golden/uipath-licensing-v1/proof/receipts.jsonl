@@ -1,0 +1,11 @@
+{"key":"tender:criteria:weights_disclosed","source_file":"ITT.txt","type":"check","value":true}
+{"key":"tender:criteria:weights_sum_100","source_file":"ITT.txt","type":"check","value":true}
+{"key":"price:index:kpi","source_file":"SSA-L-generell.txt","source_snippet":"KPI","type":"contract_term","value":true}
+{"key":"audit:rights_present","source_file":"SSA-L-generell.txt","source_snippet":"Revisjon","type":"contract_term","value":true}
+{"key":"assignment:rules_present","source_file":"SSA-L-generell.txt","source_snippet":"Overdragelse","type":"contract_term","value":true}
+{"key":"maintenance:support_available","source_file":"SSA-L-generell.txt","source_snippet":"Vedlikehold","type":"contract_term","value":true}
+{"key":"price:index:kpi","source_file":"SSA-L-bilag.txt","source_snippet":"KPI","type":"contract_term","value":true}
+{"key":"maintenance:support_available","source_file":"SSA-L-bilag.txt","source_snippet":"Vedlikehold","type":"contract_term","value":true}
+{"key":"updates:included","source_file":"SSA-L-bilag.txt","source_snippet":"Oppdateringer","type":"contract_term","value":true}
+{"key":"framework:present","source_file":"SSA-R-generell.txt","source_snippet":"Rammeavtale","type":"contract_term","value":true}
+{"key":"framework:present","source_file":"SSA-R-bilag.txt","source_snippet":"Rammeavtale","type":"contract_term","value":true}

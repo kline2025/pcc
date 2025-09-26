@@ -1,0 +1,5 @@
+root: 4ae0a3ebc89d6f5c2c2b55e7994f42b0ee71e8062b4a590de3b49e8fe6a0f39e
+lines: 11
+ts: 2025-09-26T12:15:03Z
+tool_version: 0.1.0
+git_sha: dev
