@@ -19,3 +19,8 @@ python scripts/cli/pcc_preflight.py --matrix out/run-*/matrix --out preflight_sa
 python scripts/cli/pcc_sandbox.py --matrix out/run-*/matrix --out sandbox_sample.csv
 python scripts/cli/pcc_riskcard.py --matrix out/run-*/matrix --format md --out risk_sample.md
 ```
+## Pre-commit
+
+pip install pre-commit || true
+pre-commit install
+
