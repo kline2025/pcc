@@ -1,0 +1,4 @@
+key,value,unit,source_file,source_snippet
+logistics:delivery_terms_present,True,,Rammeavtale.txt,Levering
+logistics:return_policy_present,True,,Rammeavtale.txt,Retur
+payment:days,30,,Rammeavtale.txt,betalingsbetingelsen fri leveringstid + 30 dager

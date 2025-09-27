@@ -1,0 +1,4 @@
+criterion,weight_pct,group,total_pct,price_model,scoring_model,model_anchor
+Pris,40,price,100,relative_mercell,Lavest pris gir 100 poeng,ITT.txt:510
+Kvalitet,30,quality,100,,,ITT.txt:516
+Miljø,30,quality,100,,,ITT.txt:534

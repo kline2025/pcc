@@ -1,0 +1,6 @@
+{"key":"payment:days","source_file":"Rammeavtale.txt","source_snippet":"betalingsbetingelsen fri leveringstid + 30 dager","type":"contract_term","value":30}
+{"key":"logistics:return_policy_present","source_file":"Rammeavtale.txt","source_snippet":"Retur","type":"contract_term","value":true}
+{"key":"logistics:delivery_terms_present","source_file":"Rammeavtale.txt","source_snippet":"Levering","type":"contract_term","value":true}
+{"criterion":"Pris","group":"price","model_anchor":"ITT.txt:510","price_model":"relative_mercell","scoring_model":"Lavest pris gir 100 poeng","source_file":"ITT.txt","source_line":510,"source_snippet":"Pris 40% - Ferdig utfylt prisskjema.","type":"criteria","weight_pct":40}
+{"criterion":"Kvalitet","group":"quality","model_anchor":"ITT.txt:516","price_model":"","scoring_model":"","source_file":"ITT.txt","source_line":516,"source_snippet":"Kvalitet 30% - Vareprøver","type":"criteria","weight_pct":30}
+{"criterion":"Miljø","group":"quality","model_anchor":"ITT.txt:534","price_model":"","scoring_model":"","source_file":"ITT.txt","source_line":534,"source_snippet":"Miljø 30% - Besvarelse av krav i kravspesifikasjon","type":"criteria","weight_pct":30}
