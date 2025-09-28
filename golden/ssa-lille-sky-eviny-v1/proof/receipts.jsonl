@@ -1,0 +1,15 @@
+{"key":"dpa:roles","source_file":"Bilag 11 Vedlegg 1 Databehandleravtale Afi-system_Eviny Termo AS.txt","source_snippet":"roles","type":"contract_term","value":"controller-processor"}
+{"key":"dpa:subprocessors:list_required","source_file":"Bilag 11 Vedlegg 1 Databehandleravtale Afi-system_Eviny Termo AS.txt","source_snippet":"subprocessors","type":"contract_term","value":true}
+{"key":"dpa:third_country_controls","source_file":"Bilag 11 Vedlegg 1 Databehandleravtale Afi-system_Eviny Termo AS.txt","source_snippet":"third-country","type":"contract_term","value":true}
+{"key":"dpa:roles","source_file":"ssa-lille_sky-avtaletekst-v2021.txt","source_snippet":"roles","type":"contract_term","value":"controller-processor"}
+{"key":"dpa:breach_notice:without_delay","source_file":"ssa-lille_sky-avtaletekst-v2021.txt","source_snippet":"notice","type":"contract_term","value":true}
+{"key":"dpa:third_country_controls","source_file":"ssa-lille_sky-bilag-v2021.txt","source_snippet":"third-country","type":"contract_term","value":true}
+{"key":"dpa:roles","source_file":"SSA-L-generell.txt","source_snippet":"roles","type":"contract_term","value":"controller-processor"}
+{"key":"dpa:breach_notice:without_delay","source_file":"SSA-L-generell.txt","source_snippet":"notice","type":"contract_term","value":true}
+{"key":"dpa:third_country_controls","source_file":"SSA-L-bilag.txt","source_snippet":"third-country","type":"contract_term","value":true}
+{"key":"dpa:roles","source_file":"DPA.txt","source_snippet":"roles","type":"contract_term","value":"controller-processor"}
+{"key":"dpa:subprocessors:list_required","source_file":"DPA.txt","source_snippet":"subprocessors","type":"contract_term","value":true}
+{"key":"dpa:third_country_controls","source_file":"DPA.txt","source_snippet":"third-country","type":"contract_term","value":true}
+{"key":"invoice:ehf_required","source_file":"ssa-lille_sky-bilag-v2021.txt","source_line":0,"source_snippet":"elektronisk faktura i godkjent standardformat i henhold til forskrift av 2. april 2019 om elektronisk faktura i offentlige anskaffelser.","type":"contract_term","unit":"","value":true}
+{"key":"price:index:kpi","source_file":"ssa-lille_sky-bilag-v2021.txt","source_line":0,"source_snippet":"konsumprisindeks (Totalindeksen), første gang med utgangspunkt i indeksen for den måned Avtalen ble signert, med mindre annen indeks er","type":"contract_term","unit":"","value":true}
+{"key":"termination:notice_customer_months","source_file":"ssa-lille_sky-bilag-v2021.txt","source_line":0,"source_snippet":"Oppsigelses uten begrunnelse er 6 måneder","type":"contract_term","unit":"month","value":6}

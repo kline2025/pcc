@@ -1,0 +1,8 @@
+key,value,unit,source_file,source_snippet
+dpa:breach_notice:without_delay,True,,ssa-lille_sky-avtaletekst-v2021.txt,notice without undue delay
+dpa:roles,controller-processor,,ssa-lille_sky-avtaletekst-v2021.txt,roles
+dpa:subprocessors:list_required,True,,DPA.txt,subprocessors
+dpa:third_country_controls,True,,ssa-lille_sky-bilag-v2021.txt,third-country
+invoice:ehf_required,True,,ssa-lille_sky-bilag-v2021.txt,elektronisk faktura i godkjent standardformat i henhold til forskrift av 2. april 2019 om elektronisk faktura i offentlige anskaffelser.
+price:index:kpi,True,,ssa-lille_sky-bilag-v2021.txt,"konsumprisindeks (Totalindeksen), første gang med utgangspunkt i indeksen for den måned Avtalen ble signert, med mindre annen indeks er"
+termination:notice_customer_months,6,month,ssa-lille_sky-bilag-v2021.txt,Oppsigelses uten begrunnelse er 6 måneder
