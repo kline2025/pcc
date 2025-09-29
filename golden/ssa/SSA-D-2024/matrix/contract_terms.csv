@@ -1,0 +1,14 @@
+key,value,unit,source_file,source_snippet
+payment:days,30,day,SSA-D_generell.txt,Betaling skal skje etter faktura per 30 (tretti) dager
+invoice:ehf_required,True,,SSA-D_generell.txt,elektronisk faktura i godkjent standardformat i henhold til forskrift av 2. april 2019 om elektronisk faktura i offentlige anskaffelser.
+price:index:kpi,True,,SSA-D_generell.txt,"konsumprisindeks (hovedindeksen), første gang med utgangspunkt i indeksen for den måned avtalen ble inngått, med mindre annen indeks er avtalt i bilag 7."
+termination:abortion_fee_pct,4,percent,SSA-D_generell.txt,avbestillingsgebyr som tilsvarer 4 %
+ld:daily_pct,0.15,percent,SSA-D_generell.txt,"Dagboten utgjør 0,15 %"
+ld:max_total_pct,15,percent,SSA-D_generell.txt,samlede dagbøter ikke overstige 15 %
+audit:rights_present,True,,SSA-D_generell.txt,Revisjon	16
+security:obligations_present,True,,SSA-D_generell.txt,Informasjonssikkerhet	32
+security:data_separation_required,True,,SSA-D_generell.txt,holde Kundens data atskilt	32
+dpa:required,True,,SSA-D_generell.txt,databehandleravtale	32
+subcontracting:consent_required,True,,SSA-D_generell.txt,underleverandører og tredjeparter	26
+dispute:expert_allowed,True,,SSA-D_generell.txt,Uavhengig ekspert	43
+dispute:mediation_allowed,True,,SSA-D_generell.txt,Mekling	44
