@@ -1,0 +1,14 @@
+key,value,unit,source_file,source_snippet
+payment:days,30,day,SSA-B_generell.txt,Betaling skal skje etter faktura per 30 (tretti) dager
+invoice:ehf_required,True,,SSA-B_generell.txt,elektronisk faktura i godkjent standardformat i henhold til forskrift av 2. april 2019 om elektronisk faktura i offentlige anskaffelser.
+price:index:kpi,True,,SSA-B_generell.txt,"konsumprisindeks (hovedindeksen), første gang med utgangspunkt i indeksen for den måned Avtalen ble inngått, med mindre annen indeks er avtalt i bilag 5."
+termination:abbestilling_notice_days,30,day,SSA-B_generell.txt,avbestilles av Kunden med 30 (tretti) dag
+suspension:terminate_after_days,120,day,SSA-B_generell.txt,"stanset sammenhengende i mer enn 120 (etthundreogtjue) dager, kan Konsulenten med skriftlig varsel til Kunden si opp avtalen. Dersom Kunden ikke innen 14 (fjorten) dag"
+dispute:mediation_allowed,True,,SSA-B_generell.txt,mekling
+disputes:venue,customer_business_address,,SSA-B_generell.txt,verneting ved Kundens forretningsadresse
+labor:doc_penalty_min_nok_per_day,1500,nok_per_day,SSA-B_generell.txt,dagbot .* 1500
+assignment:rules_present,True,,SSA-B_generell.txt,overdragelse
+insurance:customer_self_assured_possible,True,,SSA-B_generell.txt,selvassurandør
+insurance:consultant_required,True,,SSA-B_generell.txt,forsikringer
+fm:termination_threshold_days,90,day,SSA-B_generell.txt,varer eller antas å ville vare lenger enn 90 (nitti) dag
+fm:termination_notice_days,15,day,SSA-B_generell.txt,med 15 (femten) dagers varsel
