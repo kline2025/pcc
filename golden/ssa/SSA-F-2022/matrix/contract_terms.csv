@@ -1,0 +1,9 @@
+key,value,unit,source_file,source_snippet
+payment:days,30,day,SSA-F_generell.txt,Betaling skal skje etter faktura per 30 (tretti) kalenderdager
+invoice:ehf_required,True,,SSA-F_generell.txt,elektronisk faktura i godkjent standardformat i henhold til forskrift av 2. april 2019 om elektronisk faktura i offentlige anskaffelser.
+ld:max_days,100,day,SSA-F_generell.txt,begrenset til maksimalt 100 (hundre) kalenderdager
+security:obligations_present,True,,SSA-F_generell.txt,informasjonssikkerhet	11
+dpa:required,True,,SSA-F_generell.txt,Plikt til å inngå databehandleravtale	11
+confidentiality:term_years,5,year,SSA-F_generell.txt,"Taushetsplikten gjelder også etter at Avtalen er opphørt. Ansatte eller andre som fratrer sin tjeneste hos en av partene, skal pålegges taushetsplikt også etter fratredelsen om forhold som nevnt ovenfor. Taushetsplikten opphører 5 (fem) år"
+fm:termination_threshold_days,100,day,SSA-F_generell.txt,"varer, men begrenset til maksimalt 100 (hundre) kalenderdager"
+fm:termination_notice_days,15,day,SSA-F_generell.txt,med 15 (femten) kalenderdagers varsel
